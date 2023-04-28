@@ -1,0 +1,12 @@
+@import "src/common/styles/mixins/mixins";
+@import "src/common/styles/variables/variables";
+
+
+.header__wrapper {
+    background-color: $elements_background_color;
+    margin-top: 32px;
+    margin-bottom: 15px;
+    display: flex;
+    position: relative;
+    align-items: center;
+}

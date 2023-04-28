@@ -1,0 +1,13 @@
+@import 'src/common/styles/mixins/mixins';
+@import 'src/common/styles/variables/variables';
+
+
+.app__wrapper {
+  max-width:1116px;
+  display:flex;
+  margin:0 auto;
+  flex-direction:column;
+  min-height: 100vh;
+  align-items: center;
+}
+
