@@ -1,6 +1,5 @@
-@import "src/common/styles/mixins/mixins";
-@import "src/common/styles/variables/variables";
-
+@import "../../common/styles/mixins/mixins";
+@import "../../common/styles/variables/variables";
 
 .header__wrapper {
   background-color: $elements_background_color;
@@ -14,7 +13,6 @@
     flex-direction: row;
     gap: 60px;
 
-
     .header__link {
       @include text(16px, 20px, 400, $text_color);
       text-decoration: none;
@@ -23,8 +21,5 @@
         @include text(16px, 20px, 500, $blue_color);
       }
     }
-
-
-
   }
 }

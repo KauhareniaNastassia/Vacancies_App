@@ -1,6 +1,6 @@
 import React from "react";
 import css from './header.module.scss'
-import joboredLogo from '../assets/img/joboredLogo.png'
+import joboredLogo from '../../assets/img/joboredLogo.png'
 import {NavLink} from "react-router-dom";
 
 export const Header: React.FC = () => {
