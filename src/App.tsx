@@ -8,6 +8,10 @@ function App() {
   return (
     <div className={css.app__wrapper}>
       <Header/>
+
+        <div className={css.app__content_wrapper}>
+
+        </div>
     </div>
   );
 }

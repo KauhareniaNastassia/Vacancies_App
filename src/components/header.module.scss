@@ -3,10 +3,28 @@
 
 
 .header__wrapper {
-    background-color: $elements_background_color;
-    margin-top: 32px;
-    margin-bottom: 15px;
+  background-color: $elements_background_color;
+  display: flex;
+  padding: 24px 162px;
+  align-items: center;
+  gap: 280px;
+
+  .header__links_wrapper {
     display: flex;
-    position: relative;
-    align-items: center;
+    flex-direction: row;
+    gap: 60px;
+
+
+    .header__link {
+      @include text(16px, 20px, 400, $text_color);
+      text-decoration: none;
+
+      .header__link_active {
+        @include text(16px, 20px, 500, $blue_color);
+      }
+    }
+
+
+
+  }
 }
