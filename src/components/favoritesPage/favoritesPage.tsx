@@ -6,7 +6,6 @@ export const FavoritesPage: React.FC = () => {
 
     return (
         <section>
-            <NotFoundPage/>
         </section>
     )
 }

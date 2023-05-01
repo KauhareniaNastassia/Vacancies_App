@@ -1,0 +1,18 @@
+@import 'src/common/styles/mixins/mixins';
+@import 'src/common/styles/variables/variables';
+
+.button {
+  padding: 4px 20px;
+  background-color: $blue_color;
+  border: none;
+  border-radius: 8px;
+  @include text(14px, 21px, 500, $elements_background_color);
+
+  &:disabled {
+    background-color: $unactive_blue_color;
+    cursor: none;
+  }
+  &:active {
+    background-color: $pressed_blue_color;
+  }
+}

@@ -16,4 +16,15 @@
   .notFoundPage__message {
     @include text(24px, 29px, 700, $page_not_found_text_color)
   }
+
+  .notFoundPage__button {
+    padding: 10px 20px;
+    background: #DEECFF;
+    border-radius: 8px;
+    border: none;
+    @include text(14px, 155%, 500, $pressed_blue_color);
+    cursor: pointer;
+
+
+  }
 }

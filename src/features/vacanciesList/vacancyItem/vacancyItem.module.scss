@@ -1,0 +1,61 @@
+@import 'src/common/styles/mixins/mixins';
+@import 'src/common/styles/variables/variables';
+
+.vacancyItem__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background-color: $elements_background_color;
+  border: 1px solid #EAEBED;
+  border-radius: 12px;
+
+  width: 773px;
+
+  .vacancyItem__title_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .vacancyItem__title {
+      text-decoration: none;
+      cursor: pointer;
+      margin: 0;
+      @include text(20px, 24px, 600, $blue_color)
+    }
+
+    .vacancyItem__star_button {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      border: none;
+      background-color: transparent;
+
+      &:hover {
+        filter: invert(62%) sepia(90%) saturate(2954%) hue-rotate(196deg) brightness(99%) contrast(100%);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .vacancyItem__info_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    @include text(16px, 20px, 400, $text_color);
+
+    :first-child {
+      font-weight: 600;
+    }
+  }
+
+  .vacancyItem__location_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    @include text(16px, 19px, 400, $text_color);
+  }
+}
