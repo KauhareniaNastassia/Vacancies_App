@@ -1,0 +1,18 @@
+@import 'src/common/styles/mixins/mixins';
+@import 'src/common/styles/variables/variables';
+
+.vacancyInfoBlock__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .vacancyInfoBlock__title {
+    @include text(20px, 20px, 700, $text_color);
+    margin: 0;
+  }
+
+  .vacancyInfoBlock__list {
+    @include text(16px, 140%, 400, $text_color);
+    margin: 0;
+  }
+}
