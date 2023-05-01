@@ -1,3 +1,14 @@
-@import "../../common/styles/mixins/mixins";
-@import "../../common/styles/variables/variables";
+@import "src/common/styles/mixins/mixins";
+@import "src/common/styles/variables/variables";
 
+.searchPage__wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 28px;
+
+  .searchPage__content_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

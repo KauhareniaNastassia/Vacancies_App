@@ -1,0 +1,57 @@
+@import "src/common/styles/mixins/mixins";
+@import "src/common/styles/variables/variables";
+
+.inputSearch__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background-color: $elements_background_color;
+  border: 1px solid $border_color;
+  border-radius: 8px;
+
+  &:hover {
+    border-color: $blue_color;
+  }
+
+  /*.inputSearch__input_wrapper .inputSearch__input:~.inputSearch__wrapper{
+    border-color: $blue_color;
+  }*/
+  .inputSearch__input_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    .inputSearch__input {
+      caret-color: $blue_color;
+      border: none;
+      @include text(14px, 21px, 400, $text_color);
+
+      &::placeholder {
+        @include text(14px, 21px, 400, $unactive_text_color)
+      }
+
+      &:focus {
+        outline: none !important;
+      }
+
+      &:focus::-webkit-input-placeholder {
+        opacity: 0;
+        transition: opacisty 0.3s ease;
+      }
+
+    }
+  }
+
+  //input:not(:placeholder-shown)~ .inputSearch__wrapper {
+  //  border-color: $blue_color;
+  //}
+
+}
+
+/*
+input:focus + .inputSearch__wrapper  {
+  border-color: $blue_color;
+}*/
