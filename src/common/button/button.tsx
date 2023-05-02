@@ -1,14 +1,18 @@
 import React from "react";
 import css from './button.module.scss'
+import { Button } from '@mantine/core';
 
 type ButtonPropsType = {
     title: string
 }
 
-export const Button:React.FC<ButtonPropsType> = ({title}) => {
+export const ButtonComponent:React.FC<ButtonPropsType> = ({title}) => {
     return (
-        <button className={css.button}>
+        <Button className={css.button} variant='filled'>
             {title}
-        </button>
+        </Button>
+        /*<button className={css.button}>
+            {title}
+        </button>*/
     )
 }

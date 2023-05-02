@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from "../../common/button/button";
+import {ButtonComponent} from "../../common/button/button";
 import css from './inputSearch.module.scss'
 import searchIcon from '../../assets/img/searchIcon.svg'
 
@@ -22,9 +22,9 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({searchValue, setSea
                     onChange={(event) => setSearchValue(event.target.value)}
                 />
             </div>
+            <ButtonComponent title='Поиск'/>
 
-
-            <Button title='Поиск'/>
+            {/*<Button title='Поиск'/>*/}
 
         </section>
     )

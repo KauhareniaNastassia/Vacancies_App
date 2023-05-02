@@ -1,0 +1,62 @@
+@import "src/common/styles/mixins/mixins";
+@import "src/common/styles/variables/variables";
+
+
+.filterBar__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  @include background(20px);
+
+
+  .filterBar__title_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 67px;
+
+    .filterBar__title_name {
+      margin: 0;
+      @include text(20px, 20px, 700, $text_color)
+    }
+
+    .filterBar__title_button {
+      @include text(14px, 20px, 500, $unactive_text_color);
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+      border: none;
+      background-color: transparent;
+      align-items: center;
+      padding: 0;
+    }
+  }
+
+  .filterBar__filters_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .filterBar__filter {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .filterBar__filter_item {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        label {
+          @include text(16px, 19px, 700, $text_color);
+        }
+      }
+    }
+
+
+
+
+
+  }
+}

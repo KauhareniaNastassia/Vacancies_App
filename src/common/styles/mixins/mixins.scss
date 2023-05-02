@@ -7,3 +7,10 @@
     color: $color
 }
 
+@mixin background($padding) {
+    padding: $padding;
+    background-color: $elements_background_color;
+    border: 1px solid #EAEBED;
+    border-radius: 12px;
+}
+
