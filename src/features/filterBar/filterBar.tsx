@@ -29,14 +29,17 @@ export const FilterBar: React.FC = () => {
                         rightSection={<img src={arrowDown}/>}
                         rightSectionWidth={30}
                         className={css.filterBar__filter_item}
-                        styles={{rightSection: {pointerEvents: 'none'}}}
+                        styles={{
+                            rightSection: { pointerEvents: 'none', paddingRight: '12px' },
+                            item: { padding: '5px 0 5px 5px' },
+                        }}
                         data={['React', 'Angular', 'Svelte', 'Vue', 'Angular', 'Svelte', 'Vue']}
                     />
                 </div>
+
                 <div className={css.filterBar__filter}>
 
                     <NumberInput
-                       // defaultValue={18}
                         className={css.filterBar__filter_item}
                         placeholder="От"
                         label="Оклад"

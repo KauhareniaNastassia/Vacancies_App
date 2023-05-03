@@ -3,13 +3,14 @@
 
 
 .app__wrapper {
-  width: 1440px;
+  //width: 1440px;
   display: flex;
   flex-direction: column;
   gap: 40px;
   min-height: 100vh;
   margin: 0 auto;
   font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
 
   .app__content_wrapper {
     margin: 0 auto;

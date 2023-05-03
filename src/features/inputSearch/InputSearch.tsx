@@ -2,6 +2,7 @@ import React from "react";
 import {ButtonComponent} from "../../common/button/button";
 import css from './inputSearch.module.scss'
 import searchIcon from '../../assets/img/searchIcon.svg'
+import {Input, Tooltip} from '@mantine/core';
 
 type InputSearchPropsType = {
     searchValue: string,
@@ -11,7 +12,17 @@ type InputSearchPropsType = {
 export const InputSearch: React.FC<InputSearchPropsType> = ({searchValue, setSearchValue}) => {
 
     return (
-        <section className={css.inputSearch__wrapper}>
+        <Input
+            icon={<img src={searchIcon} alt='search icon'/>}
+            placeholder="Введите название вакансии"
+            radius={'8px'}
+            styles={{ input: { height: '48px' } }}
+            rightSectionWidth={100}
+            rightSection={
+                <ButtonComponent title='Поиск'/>
+            }
+        />
+        /*<section className={css.inputSearch__wrapper}>
 
             <div className={css.inputSearch__input_wrapper}>
                 <img src={searchIcon} alt='search icon'/>
@@ -24,8 +35,8 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({searchValue, setSea
             </div>
             <ButtonComponent title='Поиск'/>
 
-            {/*<Button title='Поиск'/>*/}
+            {/!*<Button title='Поиск'/>*!/}
 
-        </section>
+        </section>*/
     )
 }

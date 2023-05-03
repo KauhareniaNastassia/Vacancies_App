@@ -5,7 +5,7 @@
   background-color: $blue_color;
   /*border: none;
   border-radius: 8px;*/
-  @include text(14px, 21px, 500, $elements_background_color);
+  @include text(16px, 21px, 500, $elements_background_color);
 
   &:disabled {
     background-color: $unactive_blue_color;

@@ -8,11 +8,11 @@ type ButtonPropsType = {
 
 export const ButtonComponent:React.FC<ButtonPropsType> = ({title}) => {
     return (
-        <Button className={css.button} variant='filled'>
+        <Button
+            className={css.button}
+            radius={'8px'}
+            variant='filled'>
             {title}
         </Button>
-        /*<button className={css.button}>
-            {title}
-        </button>*/
     )
 }

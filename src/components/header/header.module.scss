@@ -4,9 +4,17 @@
 .header__wrapper {
   background-color: $elements_background_color;
   display: flex;
-  padding: 24px 162px;
-  align-items: center;
-  gap: 280px;
+  padding: 24px 192px;
+ // align-items: center;
+  //gap: 280px;
+
+
+  .header__content_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 280px;
+    //margin: 0 auto;
+  }
 
   .header__links_wrapper {
     display: flex;

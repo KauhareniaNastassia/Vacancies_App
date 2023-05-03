@@ -1,7 +1,29 @@
 @import "src/common/styles/mixins/mixins";
 @import "src/common/styles/variables/variables";
 
-.inputSearch__wrapper {
+
+  .inputSearch__input_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    @include text(14px, 21px, 400, $text_color);
+
+    &::placeholder {
+      @include text(14px, 21px, 400, $unactive_text_color)
+    }
+
+  }
+
+  //input:not(:placeholder-shown)~ .inputSearch__wrapper {
+  //  border-color: $blue_color;
+  //}
+
+
+
+
+
+/*.inputSearch__wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -15,9 +37,9 @@
     border-color: $blue_color;
   }
 
-  /*.inputSearch__input_wrapper .inputSearch__input:~.inputSearch__wrapper{
+  !*.inputSearch__input_wrapper .inputSearch__input:~.inputSearch__wrapper{
     border-color: $blue_color;
-  }*/
+  }*!
   .inputSearch__input_wrapper {
     display: flex;
     flex-direction: row;
@@ -49,7 +71,7 @@
   //  border-color: $blue_color;
   //}
 
-}
+}*/
 
 /*
 input:focus + .inputSearch__wrapper  {
