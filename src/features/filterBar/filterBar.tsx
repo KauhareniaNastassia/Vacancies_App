@@ -1,11 +1,10 @@
 import React from "react";
 import css from './filterBar.module.scss'
 import closeIcon from '../../assets/img/closeIcon.svg'
-
-import {NumberInput, Select} from "@mantine/core";
-import { Button } from '@mantine/core';
+import {Select} from "@mantine/core";
 import arrowDown from '../../assets/img/arrowDown.svg'
-import {ButtonComponent} from "../../common/button/button";
+import {ButtonComponent} from "../../common/button/buttonComponent";
+import {NumberInputComponent} from "../../common/numberInputComponent/numberInputComponent";
 
 
 export const FilterBar: React.FC = () => {
@@ -21,49 +20,28 @@ export const FilterBar: React.FC = () => {
             </div>
             <div className={css.filterBar__filters_wrapper}>
 
-
                 <div className={css.filterBar__filter}>
                     <Select
                         label="Отрасль"
                         placeholder="Выберете отрасль"
                         rightSection={<img src={arrowDown}/>}
-                        rightSectionWidth={30}
+                        rightSectionWidth={0}
                         className={css.filterBar__filter_item}
                         styles={{
-                            rightSection: { pointerEvents: 'none', paddingRight: '12px' },
-                            item: { padding: '5px 0 5px 5px' },
+                            rightSection: {pointerEvents: 'none'},
+                            input: {borderColor: '#EAEBED', borderRadius: '8px'},
                         }}
                         data={['React', 'Angular', 'Svelte', 'Vue', 'Angular', 'Svelte', 'Vue']}
                     />
                 </div>
 
                 <div className={css.filterBar__filter}>
-
-                    <NumberInput
-                        className={css.filterBar__filter_item}
-                        placeholder="От"
-                        label="Оклад"
-                        min={0}
-                    />
-                    <NumberInput
-                        //defaultValue={18}
-                        className={css.filterBar__filter_item}
-                        placeholder="До"
-                        min={0}
-
-                        //label="Оклад"
-                    />
-
-
+                    <NumberInputComponent label='Оклад' placeholder='От'/>
+                    <NumberInputComponent placeholder='До'/>
                 </div>
 
-
                 <ButtonComponent title='Применить'/>
-
-
-
             </div>
-
         </section>
     )
 }

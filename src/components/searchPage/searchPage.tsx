@@ -23,7 +23,6 @@ export const SearchPage: React.FC = () => {
                 <VacanciesList/>
                 <Pagination/>
             </div>
-
         </section>
     )
 }

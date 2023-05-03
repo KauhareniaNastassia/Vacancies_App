@@ -2,6 +2,7 @@ import React from "react";
 import notFoundPageIcon from '../../assets/img/notFoundPageIcon.svg'
 import css from './notFoundPage.module.scss'
 import {useNavigate} from "react-router-dom";
+import {ButtonComponent} from "../../common/button/buttonComponent";
 
 
 export const NotFoundPage: React.FC = () => {
@@ -19,9 +20,11 @@ export const NotFoundPage: React.FC = () => {
             <span className={css.notFoundPage__message}>
                 Упс, здесь еще ничего нет!
             </span>
-            <button className={css.notFoundPage__button} onClick={() => navigate('/search')}>
-                Поиск вакансий
-            </button>
+
+            <ButtonComponent
+                title='Поиск вакансий'
+                onClickHandler={() => navigate('/search')}
+            />
 
         </section>
     )

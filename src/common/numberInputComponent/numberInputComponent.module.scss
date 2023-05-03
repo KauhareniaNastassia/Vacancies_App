@@ -1,0 +1,23 @@
+@import "src/common/styles/mixins/mixins";
+@import "src/common/styles/variables/variables";
+
+
+.filterBar__filter_item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    @include text(16px, 19px, 700, $text_color);
+  }
+
+  .filterBar__filter_arrows {
+    display: flex;
+    flex-direction: column;
+    gap:0px;
+
+    img {
+      cursor: pointer;
+    }
+  }
+}

@@ -14,10 +14,11 @@ function App() {
 
         <div className={css.app__content_wrapper}>
           <Routes>
-            <Route path="/" element={<Navigate to="/search"/>}/>
-            <Route path="/search" element={<SearchPage/>}/>
+            <Route path="/" element={<Navigate to="/vacancies"/>}/>
+            <Route path="/vacancies" element={<SearchPage/>}/>
             <Route path="/favorites" element={<FavoritesPage/>}/>
             <Route path="/vacancy" element={<VacancyPage/>}/>
+           {/* <Route path={`/vacancies/${vacancy.id}`} element={<VacancyPage/>}/>*/}
 
           </Routes>
         </div>

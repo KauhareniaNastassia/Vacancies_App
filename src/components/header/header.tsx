@@ -8,12 +8,14 @@ export const Header: React.FC = () => {
     return (
         <section className={css.header__wrapper}>
             <div className={css.header__content_wrapper}>
-                <img src={joboredLogo} alt='joboredLogo'/>
+                <NavLink to='/'>
+                    <img src={joboredLogo} alt='joboredLogo'/>
+                </NavLink>
 
                 <div className={css.header__links_wrapper}>
                     <div className={css.header__link}>
                         <NavLink
-                            to='/search'
+                            to="/vacancies"
                             className={({isActive}) => isActive ? `${css.header__link} ${css.header__link_active}` : css.header__link}>
                             Поиск вакансий
                         </NavLink>
@@ -27,7 +29,6 @@ export const Header: React.FC = () => {
                     </div>
                 </div>
             </div>
-
         </section>
     )
 }

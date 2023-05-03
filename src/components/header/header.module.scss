@@ -5,28 +5,25 @@
   background-color: $elements_background_color;
   display: flex;
   padding: 24px 192px;
- // align-items: center;
-  //gap: 280px;
-
 
   .header__content_wrapper {
     display: flex;
     align-items: center;
     gap: 280px;
-    //margin: 0 auto;
-  }
+    margin: 0;
 
-  .header__links_wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 60px;
+    .header__links_wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 60px;
 
-    .header__link {
-      @include text(16px, 20px, 400, $text_color);
-      text-decoration: none;
+      .header__link {
+        @include text(16px, 20px, 400, $text_color);
+        text-decoration: none;
 
-      .header__link_active {
-        @include text(16px, 20px, 500, $blue_color);
+        .header__link_active {
+          @include text(16px, 20px, 500, $blue_color);
+        }
       }
     }
   }
