@@ -1,10 +1,12 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-
+import {AppActionsType, appReducer} from "./appReducer";
+import {AuthActionsType, authReducer} from "./authReducer";
 
 
 const RootReducer = combineReducers({
-
+    app: appReducer,
+    auth: authReducer
 })
 
 // @ts-ignore
@@ -14,15 +16,16 @@ export const store = createStore(RootReducer, composeEnhancers(applyMiddleware(t
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 
-/*export type ActionsType =
-    | BookListActionTypes
-    | BookActionsType
+export type ActionsType =
+    | AppActionsType
+    | AuthActionsType
+
 
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, ActionsType>
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType,
     AppRootStateType,
     unknown,
-    ActionsType>*/
+    ActionsType>
 
 
 // @ts-ignore
