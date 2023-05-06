@@ -1,12 +1,10 @@
 import {AppThunkType} from "./store";
 import {setAppStatusAC} from "./appReducer";
-import {authAPI} from "../api/authAPI/authAPI";
+import {authAPI} from "../api/authAPI";
 
 
 const initialState: InitialAuthStateType = {
     data: null,
-    accessToken: null,
-
 }
 
 export const authReducer = (state: InitialAuthStateType = initialState, action: AuthActionsType): InitialAuthStateType => {
@@ -17,7 +15,6 @@ export const authReducer = (state: InitialAuthStateType = initialState, action: 
         default:
             return state
     }
-
 }
 
 
@@ -70,7 +67,6 @@ export type AuthActionsType =
 
 type InitialAuthStateType = {
     data: null | AuthResponseType
-    accessToken: string | null
 }
 
 export type AuthResponseType = {

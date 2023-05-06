@@ -5,16 +5,21 @@ import starIconDefault from '../../../assets/img/starIconDefault.svg'
 import starIconPressed from '../../../assets/img/starIconPressed.svg'
 import locationIcon from '../../../assets/img/locationIcon.svg'
 import {NavLink} from "react-router-dom";
+import {VacancyType} from "../../../redux/vacanciesReducer";
 
 
-export const VacancyItem: React.FC = () => {
+type VacancyItemPropsType = {
+    vacancyItem?: VacancyType //delete ? after everything
+}
+
+export const VacancyItem: React.FC<VacancyItemPropsType> = ({vacancyItem}) => {
 
     const [starPressed, setStarPressed] = useState(false)
 
     return (
         <section className={css.vacancyItem__wrapper}>
             <div className={css.vacancyItem__title_wrapper}>
-                <NavLink to={'/vacancy'} className={css.vacancyItem__title}>Менеджер-дизайнер</NavLink>
+                <NavLink to={'/vacancy'} className={css.vacancyItem__title}>{vacancyItem?.profession}</NavLink>
 
                 <button
                     className={css.vacancyItem__star_button}
@@ -33,17 +38,17 @@ export const VacancyItem: React.FC = () => {
 
             <div className={css.vacancyItem__info_wrapper}>
                 <span>
-                    з/п от 70000 rub
+                    з/п от {vacancyItem?.payment_from} {vacancyItem?.currency}
                 </span>
                 <img src={dotIcon} alt='dot icon'/>
                 <span>
-                    Полный рабочий день
+                    {vacancyItem?.type_of_work.title}
                 </span>
             </div>
 
             <div className={css.vacancyItem__location_wrapper}>
                 <img src={locationIcon} alt='location icon'/>
-                <span>Новый Уренгой</span>
+                <span>{vacancyItem?.town.title}</span>
             </div>
 
         </section>

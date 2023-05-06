@@ -1,5 +1,5 @@
-import {instance} from "../instance";
-import {AuthResponseType} from "../../redux/authReducer";
+import {instance} from "./instance";
+import {AuthResponseType} from "../redux/authReducer";
 
 
 export const authAPI = {

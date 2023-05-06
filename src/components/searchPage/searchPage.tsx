@@ -1,14 +1,28 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {FilterBar} from "../../features/filterBar/filterBar";
 import {VacanciesList} from "../../features/vacanciesList/vacanciesList";
 import {InputSearch} from "../../features/inputSearch/InputSearch";
 import {Pagination} from "../pagination/pagination";
 import css from './searchPage.module.scss'
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {getVacanciesTC} from "../../redux/vacanciesReducer";
 
 
 export const SearchPage: React.FC = () => {
-
+    const dispatch = useAppDispatch()
     const [searchValue, setSearchValue] = useState<string>('');
+    const vacancies = useAppSelector(state => state.vacancies.objects)
+
+    useEffect(() => {
+
+        let dataForSearch = {
+
+        }
+
+        dispatch(getVacanciesTC(dataForSearch))
+    }, [])
+
+    console.log(vacancies)
 
     return (
         <section className={css.searchPage__wrapper}>
@@ -20,7 +34,7 @@ export const SearchPage: React.FC = () => {
                     searchValue={searchValue}
                     setSearchValue={setSearchValue}
                 />
-                <VacanciesList/>
+                <VacanciesList vacancies={vacancies}/>
                 <Pagination/>
             </div>
         </section>

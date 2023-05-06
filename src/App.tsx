@@ -15,14 +15,14 @@ function App() {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (!authData?.access_token) {
+        if (authData === null) {
             dispatch(authByPasswordTC())
         }
         else if (authData.refresh_token && 1000*authData.ttl < Date.now()) {
             dispatch(refreshTokenTC(authData.refresh_token))
         }
 
-    }, [authData?.access_token])
+    }, [authData])
 
 
 

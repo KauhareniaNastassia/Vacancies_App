@@ -2,11 +2,13 @@ import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppActionsType, appReducer} from "./appReducer";
 import {AuthActionsType, authReducer} from "./authReducer";
+import {VacanciesActionsType, vacanciesReducer} from "./vacanciesReducer";
 
 
 const RootReducer = combineReducers({
     app: appReducer,
-    auth: authReducer
+    auth: authReducer,
+    vacancies: vacanciesReducer
 })
 
 // @ts-ignore
@@ -19,6 +21,7 @@ export type AppRootStateType = ReturnType<typeof store.getState>
 export type ActionsType =
     | AppActionsType
     | AuthActionsType
+    | VacanciesActionsType
 
 
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, ActionsType>
