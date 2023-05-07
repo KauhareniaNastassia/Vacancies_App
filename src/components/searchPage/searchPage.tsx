@@ -22,7 +22,6 @@ export const SearchPage: React.FC = () => {
         dispatch(getVacanciesTC(dataForSearch))
     }, [])
 
-    console.log(vacancies)
 
     return (
         <section className={css.searchPage__wrapper}>

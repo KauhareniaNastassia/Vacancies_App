@@ -1,14 +1,22 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import css from './vacancyInfo.module.scss'
-import {VacancyInfoBlock} from "./vacancyInfoBlock/vacancyInfoBlock";
 
+type VacancyInfoPropsType = {
+    info: string
+}
 
-export const VacancyInfo:React.FC = () => {
+export const VacancyInfo:React.FC<VacancyInfoPropsType> = ({info}) => {
+    const spanRef = useRef<HTMLSpanElement>(null);
+
+    useEffect(() => {
+        if (spanRef.current) {
+            spanRef.current.innerHTML = info;
+        }
+    }, [spanRef]);
+
     return (
         <section className={css.vacancyInfo__wrapper}>
-            <VacancyInfoBlock title='Обязанности'/>
-            <VacancyInfoBlock title='Требования'/>
-            <VacancyInfoBlock title='Условия'/>
+            <span ref={spanRef} />
         </section>
     )
 }

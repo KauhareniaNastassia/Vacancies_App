@@ -9,46 +9,64 @@ import {VacancyType} from "../../../redux/vacanciesReducer";
 
 
 type VacancyItemPropsType = {
-    vacancyItem?: VacancyType //delete ? after everything
+    id: number
+    profession: string
+    paymentFrom: number
+    currency: string
+    typeOfWorkTitle: string
+    townTitle: string
+    isLink: boolean
 }
 
-export const VacancyItem: React.FC<VacancyItemPropsType> = ({vacancyItem}) => {
+export const VacancyItem: React.FC<VacancyItemPropsType> = ({
+                                                                id,
+                                                                paymentFrom,
+                                                                typeOfWorkTitle,
+                                                                townTitle,
+                                                                currency,
+                                                                profession, isLink
+                                                            }) => {
 
     const [starPressed, setStarPressed] = useState(false)
 
     return (
         <section className={css.vacancyItem__wrapper}>
             <div className={css.vacancyItem__title_wrapper}>
-                <NavLink to={'/vacancy'} className={css.vacancyItem__title}>{vacancyItem?.profession}</NavLink>
+                {isLink
+                    ? <NavLink to={`/vacancies/${id}`}
+                               className={css.vacancyItem__title_link}>{profession}</NavLink>
+                    : <div className={css.vacancyItem__title}>{profession}</div>
+                }
+
 
                 <button
                     className={css.vacancyItem__star_button}
                     onClick={() => setStarPressed(!starPressed)}>
-                    { starPressed
-                            ? <img
-                                className={css.vacancyItem__star_default}
-                                src={starIconPressed}
-                                alt='star icon default'/>
-                            : <img
-                                src={starIconDefault}
-                                alt='star icon default'/>
+                    {starPressed
+                        ? <img
+                            className={css.vacancyItem__star_default}
+                            src={starIconPressed}
+                            alt='star icon default'/>
+                        : <img
+                            src={starIconDefault}
+                            alt='star icon default'/>
                     }
                 </button>
             </div>
 
             <div className={css.vacancyItem__info_wrapper}>
                 <span>
-                    з/п от {vacancyItem?.payment_from} {vacancyItem?.currency}
+                    з/п от {paymentFrom} {currency}
                 </span>
                 <img src={dotIcon} alt='dot icon'/>
                 <span>
-                    {vacancyItem?.type_of_work.title}
+                    {typeOfWorkTitle}
                 </span>
             </div>
 
             <div className={css.vacancyItem__location_wrapper}>
                 <img src={locationIcon} alt='location icon'/>
-                <span>{vacancyItem?.town.title}</span>
+                <span>{townTitle}</span>
             </div>
 
         </section>

@@ -14,11 +14,15 @@
     justify-content: space-between;
     align-items: center;
 
-    .vacancyItem__title {
+    .vacancyItem__title_link {
       text-decoration: none;
       cursor: pointer;
       margin: 0;
       @include text(20px, 24px, 600, $blue_color)
+    }
+
+    .vacancyItem__title {
+      @include text(28px, 34px, 700, $text_color)
     }
 
     .vacancyItem__star_button {

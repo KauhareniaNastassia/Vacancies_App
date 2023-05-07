@@ -36,7 +36,7 @@ function App() {
                     <Route path="/" element={<Navigate to="/vacancies"/>}/>
                     <Route path="/vacancies" element={<SearchPage/>}/>
                     <Route path="/favorites" element={<FavoritesPage/>}/>
-                    <Route path="/vacancy" element={<VacancyPage/>}/>
+                    <Route path="/vacancies/:id" element={<VacancyPage/>}/>
                     {/* <Route path={`/vacancies/${vacancy.id}`} element={<VacancyPage/>}/>*/}
 
                 </Routes>

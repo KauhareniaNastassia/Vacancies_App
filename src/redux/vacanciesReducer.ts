@@ -47,6 +47,7 @@ export const getVacanciesTC = (params: VacanciesParamsType): AppThunkType =>
 
 
 
+
 //types
 export type VacanciesActionsType =
     | ReturnType<typeof setVacanciesAC>

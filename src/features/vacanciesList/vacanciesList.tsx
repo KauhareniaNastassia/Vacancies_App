@@ -15,7 +15,13 @@ export const VacanciesList: React.FC<VacanciesListPropsType> = ({vacancies}) => 
             {vacancies && vacancies.map(el =>
                 <VacancyItem
                     key={el.id}
-                    vacancyItem={el}
+                    id={el.id}
+                    profession={el.profession}
+                    paymentFrom={el.payment_from}
+                    currency={el.currency}
+                    typeOfWorkTitle={el.type_of_work.title}
+                    townTitle={el.town.title}
+                    isLink={!!el.id}
                 />
             )}
 
