@@ -16,6 +16,8 @@ type VacancyItemPropsType = {
     typeOfWorkTitle: string
     townTitle: string
     isLink: boolean
+    addVacancyToFavoritesHandler: (id: number) => void
+    //addVacancyToFavoritesHandler: () => void
 }
 
 export const VacancyItem: React.FC<VacancyItemPropsType> = ({
@@ -24,10 +26,17 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
                                                                 typeOfWorkTitle,
                                                                 townTitle,
                                                                 currency,
-                                                                profession, isLink
+                                                                profession, isLink,
+                                                                addVacancyToFavoritesHandler
                                                             }) => {
 
     const [starPressed, setStarPressed] = useState(false)
+    const [favoriteVacancies, setFavoriteVacancies] = useState<VacancyType[]>([])
+
+    const addVacancyHandler = (id: number) => {
+        addVacancyToFavoritesHandler(id)
+        setStarPressed(true)
+    }
 
     return (
         <section className={css.vacancyItem__wrapper}>
@@ -41,7 +50,9 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
 
                 <button
                     className={css.vacancyItem__star_button}
-                    onClick={() => setStarPressed(!starPressed)}>
+                    onClick={() => addVacancyHandler(id)}
+
+                    /*onClick={() => setStarPressed(!starPressed)}*/>
                     {starPressed
                         ? <img
                             className={css.vacancyItem__star_default}

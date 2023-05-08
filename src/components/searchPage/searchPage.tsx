@@ -7,8 +7,12 @@ import css from './searchPage.module.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getVacanciesTC} from "../../redux/vacanciesReducer";
 
+type SearchPagePropsType = {
+    addVacancyToFavoritesHandler: (id: number) => void
+}
 
-export const SearchPage: React.FC = () => {
+
+export const SearchPage: React.FC<SearchPagePropsType> = ({addVacancyToFavoritesHandler}) => {
     const dispatch = useAppDispatch()
     const [searchValue, setSearchValue] = useState<string>('');
     const vacancies = useAppSelector(state => state.vacancies.objects)
@@ -33,7 +37,8 @@ export const SearchPage: React.FC = () => {
                     searchValue={searchValue}
                     setSearchValue={setSearchValue}
                 />
-                <VacanciesList vacancies={vacancies}/>
+                <VacanciesList vacancies={vacancies}
+                               addVacancyToFavoritesHandler={addVacancyToFavoritesHandler}/>
                 <Pagination/>
             </div>
         </section>
