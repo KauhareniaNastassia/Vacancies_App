@@ -32,6 +32,13 @@ function App() {
         }
     }
 
+    useEffect(() => {
+        localStorage.getItem("Favorites") ?
+            setFavoriteVacancies(JSON.parse(localStorage.getItem("Favorites") || "{}"))
+            :
+            setFavoriteVacancies([]);
+    }, [])
+
 
     useEffect(() => {
         if (authData === null) {
@@ -51,7 +58,10 @@ function App() {
                     <Route path="/" element={<Navigate to="/vacancies"/>}/>
                     <Route path="/vacancies" element={<SearchPage
                         addVacancyToFavoritesHandler={addVacancyToFavoritesHandler}/>}/>
-                    <Route path="/favorites" element={<FavoritesPage/>}/>
+                    <Route path="/favorites" element={<FavoritesPage
+                        favoriteVacancies={favoriteVacancies}
+                        addVacancyToFavoritesHandler={addVacancyToFavoritesHandler}
+                    />}/>
                     <Route path="/vacancies/:id" element={<VacancyPage/>}/>
                     {/* <Route path={`/vacancies/${vacancy.id}`} element={<VacancyPage/>}/>*/}
 
