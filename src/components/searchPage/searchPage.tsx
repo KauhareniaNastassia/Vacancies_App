@@ -6,16 +6,21 @@ import {Pagination} from "../pagination/pagination";
 import css from './searchPage.module.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getVacanciesTC} from "../../redux/vacanciesReducer";
+import {getFavoritesTC} from "../../redux/favoritesReducer";
 
 type SearchPagePropsType = {
-    addVacancyToFavoritesHandler: (id: number) => void
+   // addVacancyToFavoritesHandler: (id: number) => void
 }
 
 
-export const SearchPage: React.FC<SearchPagePropsType> = ({addVacancyToFavoritesHandler}) => {
+export const SearchPage: React.FC<SearchPagePropsType> = ({}) => {
     const dispatch = useAppDispatch()
     const [searchValue, setSearchValue] = useState<string>('');
-    const vacancies = useAppSelector(state => state.vacancies.objects)
+    const vacancies = useAppSelector(state => state.vacancies)
+
+    useEffect(() => {
+        dispatch(getFavoritesTC())
+    }, [])
 
     useEffect(() => {
 
@@ -37,8 +42,7 @@ export const SearchPage: React.FC<SearchPagePropsType> = ({addVacancyToFavorites
                     searchValue={searchValue}
                     setSearchValue={setSearchValue}
                 />
-                <VacanciesList vacancies={vacancies}
-                               addVacancyToFavoritesHandler={addVacancyToFavoritesHandler}/>
+                <VacanciesList vacancies={vacancies}/>
                 <Pagination/>
             </div>
         </section>

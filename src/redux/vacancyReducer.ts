@@ -1,18 +1,16 @@
 import {AppThunkType} from "./store";
 import {setAppStatusAC} from "./appReducer";
 import {vacanciesAPI} from "../api/vacanciesAPI";
-import {setVacanciesAC, VacancyType} from "./vacanciesReducer";
+import {VacancyType} from "./vacanciesReducer";
 
 
-const initialState: InitialVacancyStateType = {
-    vacancy: {} as VacancyType,
-}
+const initialState: InitialVacancyStateType = {} as VacancyType
 
 
 export const vacancyReducer = (state: InitialVacancyStateType = initialState, action: VacancyActionsType): InitialVacancyStateType => {
     switch (action.type) {
         case "vacancy/SET-VACANCY":
-            return {...state, vacancy: action.vacancy}
+            return action.vacancy
 
         default:
             return state
@@ -25,6 +23,8 @@ export const setVacancyAC = (vacancy:  VacancyType) => ({
     type: 'vacancy/SET-VACANCY',
     vacancy
 } as const)
+
+
 
 
 //thunks
@@ -49,6 +49,7 @@ export const getVacancyTC = (id: number): AppThunkType =>
 export type VacancyActionsType =
     | ReturnType<typeof setVacancyAC>
 
-export type InitialVacancyStateType = {
-    vacancy: VacancyType
-}
+
+
+export type InitialVacancyStateType = VacancyType
+    //isFavorite: boolean

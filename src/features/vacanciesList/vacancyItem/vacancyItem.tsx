@@ -6,6 +6,8 @@ import starIconPressed from '../../../assets/img/starIconPressed.svg'
 import locationIcon from '../../../assets/img/locationIcon.svg'
 import {NavLink} from "react-router-dom";
 import {VacancyType} from "../../../redux/vacanciesReducer";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {addVacancyToFavoritesTC} from "../../../redux/favoritesReducer";
 
 
 type VacancyItemPropsType = {
@@ -16,7 +18,7 @@ type VacancyItemPropsType = {
     typeOfWorkTitle: string
     townTitle: string
     isLink: boolean
-    addVacancyToFavoritesHandler: (id: number) => void
+    //addVacancyToFavoritesHandler: (id: number) => void
     //addVacancyToFavoritesHandler: () => void
 }
 
@@ -26,16 +28,26 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
                                                                 typeOfWorkTitle,
                                                                 townTitle,
                                                                 currency,
-                                                                profession, isLink,
-                                                                addVacancyToFavoritesHandler
+                                                                profession, isLink
+
                                                             }) => {
 
+
+    const dispatch = useAppDispatch()
     const [starPressed, setStarPressed] = useState(false)
-    const [favoriteVacancies, setFavoriteVacancies] = useState<VacancyType[]>([])
+    const vacancies = useAppSelector(state => state.vacancies)
+    const iFavoriteVacancy = useAppSelector(state => state.favorites).find(el => el.id === id)
+
+
 
     const addVacancyHandler = (id: number) => {
-        addVacancyToFavoritesHandler(id)
-        setStarPressed(true)
+        if(vacancies) {
+            let vacancyForFavorites = vacancies.find(el => el.id === id)!
+            if (vacancyForFavorites ) {
+                dispatch(addVacancyToFavoritesTC(vacancyForFavorites))
+                setStarPressed(true)
+                }
+            }
     }
 
     return (
@@ -51,13 +63,12 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
                 <button
                     className={css.vacancyItem__star_button}
                     onClick={() => addVacancyHandler(id)}
-
-                    /*onClick={() => setStarPressed(!starPressed)}*/>
-                    {starPressed
+                >
+                    {iFavoriteVacancy || starPressed
                         ? <img
                             className={css.vacancyItem__star_default}
                             src={starIconPressed}
-                            alt='star icon default'/>
+                            alt='star icon pressed'/>
                         : <img
                             src={starIconDefault}
                             alt='star icon default'/>

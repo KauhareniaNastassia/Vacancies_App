@@ -5,15 +5,15 @@ import {authAPI} from "../api/authAPI";
 import {vacanciesAPI} from "../api/vacanciesAPI";
 
 
-const initialState: InitialVacanciesStateType = {
-    objects: null,
-    total: null ,
-}
+const initialState: InitialVacanciesStateType = [] as VacancyType[]
+
+
 
 export const vacanciesReducer = (state: InitialVacanciesStateType = initialState, action: VacanciesActionsType): InitialVacanciesStateType => {
     switch (action.type) {
         case "vacancies/SET-VACANCIES":
-            return {...state, objects: action.objects}
+            return action.objects.map(el => ({...el, isFavorite: false}))
+
 
         default:
             return state
@@ -22,7 +22,7 @@ export const vacanciesReducer = (state: InitialVacanciesStateType = initialState
 
 
 //actions
-export const setVacanciesAC = (objects: null | VacancyType[]) => ({
+export const setVacanciesAC = (objects: VacancyType[]) => ({
     type: 'vacancies/SET-VACANCIES',
     objects
 } as const)
@@ -52,11 +52,11 @@ export const getVacanciesTC = (params: VacanciesParamsType): AppThunkType =>
 export type VacanciesActionsType =
     | ReturnType<typeof setVacanciesAC>
 
-type InitialVacanciesStateType = {
-    objects: null | VacancyType[]
-    total: null | number
-}
+type InitialVacanciesStateType =  VacancyType[]
 
+/*export type ObjectsDomainType = VacancyType & {
+    isFavorite: boolean
+}*/
 
 export type VacancyType = {
     id: number,
@@ -68,8 +68,6 @@ export type VacancyType = {
     type_of_work: TypeOfWorkVacancyType,
     catalogues: CataloguesVacancyType[],
     town: TownVacancyType,
-    firm_name: string,
-    firm_activity: string
 }
 export type TownVacancyType = {
     id: number,

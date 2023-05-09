@@ -1,16 +1,18 @@
 import React, {useEffect} from "react";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
-import {VacancyType} from "../../redux/vacanciesReducer";
 import {VacancyItem} from "../../features/vacanciesList/vacancyItem/vacancyItem";
-
-type FavoritesPage = {
-    favoriteVacancies: VacancyType[]
-    addVacancyToFavoritesHandler: (id: number) => void
-}
-
-export const FavoritesPage: React.FC<FavoritesPage> = ({favoriteVacancies, addVacancyToFavoritesHandler}) => {
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {getFavoritesTC} from "../../redux/favoritesReducer";
 
 
+export const FavoritesPage: React.FC = () => {
+
+    const dispatch = useAppDispatch()
+    const favoriteVacancies = useAppSelector(state => state.favorites)
+
+    useEffect(() => {
+        dispatch(getFavoritesTC())
+    }, [])
 
     return (
         <section>
@@ -26,11 +28,9 @@ export const FavoritesPage: React.FC<FavoritesPage> = ({favoriteVacancies, addVa
                         typeOfWorkTitle={el.type_of_work.title}
                         townTitle={el.town.title}
                         isLink={!!el.id}
-                        addVacancyToFavoritesHandler={addVacancyToFavoritesHandler}
-                        //addVacancyToFavoritesHandler={addVacancyToFavoritesHandler}
                     />
                 )
-            :  <NotFoundPage/>
+                : <NotFoundPage/>
             }
 
 

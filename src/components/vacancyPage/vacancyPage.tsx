@@ -10,7 +10,7 @@ import {getVacancyTC} from "../../redux/vacancyReducer";
 export const VacancyPage: React.FC = () => {
     const dispatch = useAppDispatch()
     const {id} = useParams()
-    const vacancy = useAppSelector(state => state.vacancy.vacancy)
+    const vacancy = useAppSelector(state => state.vacancy)
 
 
     useEffect(() => {
