@@ -1,3 +1,8 @@
 @import "../../common/styles/mixins/mixins";
 @import "../../common/styles/variables/variables";
 
+.favoritesList__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

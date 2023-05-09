@@ -8,12 +8,8 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getVacanciesTC} from "../../redux/vacanciesReducer";
 import {getFavoritesTC} from "../../redux/favoritesReducer";
 
-type SearchPagePropsType = {
-   // addVacancyToFavoritesHandler: (id: number) => void
-}
 
-
-export const SearchPage: React.FC<SearchPagePropsType> = ({}) => {
+export const SearchPage: React.FC = ({}) => {
     const dispatch = useAppDispatch()
     const [searchValue, setSearchValue] = useState<string>('');
     const vacancies = useAppSelector(state => state.vacancies)

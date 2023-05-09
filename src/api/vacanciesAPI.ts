@@ -7,7 +7,7 @@ export const vacanciesAPI = {
         return customInstance.get<GetVacanciesResponseType>('/vacancies/', {
             params: {
                 published: '1',
-                count: 4,
+                count: 5,
                 ...params
             }
         })

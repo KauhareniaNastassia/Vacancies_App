@@ -3,6 +3,7 @@ import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
 import {VacancyItem} from "../../features/vacanciesList/vacancyItem/vacancyItem";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getFavoritesTC} from "../../redux/favoritesReducer";
+import css from './favoritesPage.module.scss'
 
 
 export const FavoritesPage: React.FC = () => {
@@ -10,15 +11,15 @@ export const FavoritesPage: React.FC = () => {
     const dispatch = useAppDispatch()
     const favoriteVacancies = useAppSelector(state => state.favorites)
 
-    useEffect(() => {
+  /*  useEffect(() => {
         dispatch(getFavoritesTC())
-    }, [])
+    }, [favoriteVacancies.length])*/
 
     return (
-        <section>
+        <section className={css.favoritesList__wrapper}>
 
             {favoriteVacancies.length !== 0 ?
-                favoriteVacancies.reverse().map((el) =>
+                favoriteVacancies.map((el) =>
                     <VacancyItem
                         key={el.id}
                         id={el.id}

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import css from './vacancyItem.module.scss'
 import dotIcon from '../../../assets/img/dotIcon.svg'
 import starIconDefault from '../../../assets/img/starIconDefault.svg'
@@ -7,7 +7,7 @@ import locationIcon from '../../../assets/img/locationIcon.svg'
 import {NavLink} from "react-router-dom";
 import {VacancyType} from "../../../redux/vacanciesReducer";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {addVacancyToFavoritesTC} from "../../../redux/favoritesReducer";
+import {addVacancyToFavoritesTC, removeVacancyFromFavoritesTC} from "../../../redux/favoritesReducer";
 
 
 type VacancyItemPropsType = {
@@ -18,8 +18,6 @@ type VacancyItemPropsType = {
     typeOfWorkTitle: string
     townTitle: string
     isLink: boolean
-    //addVacancyToFavoritesHandler: (id: number) => void
-    //addVacancyToFavoritesHandler: () => void
 }
 
 export const VacancyItem: React.FC<VacancyItemPropsType> = ({
@@ -32,23 +30,31 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
 
                                                             }) => {
 
-
     const dispatch = useAppDispatch()
-    const [starPressed, setStarPressed] = useState(false)
     const vacancies = useAppSelector(state => state.vacancies)
-    const iFavoriteVacancy = useAppSelector(state => state.favorites).find(el => el.id === id)
+    const favorites = useAppSelector(state => state.favorites)
+    const favoriteVacancy = favorites.find(el => el.id == id)
+    const [isFavoriteVacancy, setIsFavoriteVacancy] = useState<boolean>()
 
 
-
-    const addVacancyHandler = (id: number) => {
-        if(vacancies) {
-            let vacancyForFavorites = vacancies.find(el => el.id === id)!
-            if (vacancyForFavorites ) {
-                dispatch(addVacancyToFavoritesTC(vacancyForFavorites))
-                setStarPressed(true)
+    const onClickHandler = async (id: number) => {
+        if (vacancies) {
+            if (favoriteVacancy) {
+                dispatch(removeVacancyFromFavoritesTC(id))
+                setIsFavoriteVacancy(false)
+            } else {
+                let vacancyForFavorites = vacancies.find(el => el.id === id)!
+                if (vacancyForFavorites) {
+                    dispatch(addVacancyToFavoritesTC(vacancyForFavorites))
+                  setIsFavoriteVacancy(true)
                 }
             }
+        }
     }
+
+    useEffect(() => {
+        setIsFavoriteVacancy(!!favoriteVacancy)
+    }, [favoriteVacancy])
 
     return (
         <section className={css.vacancyItem__wrapper}>
@@ -59,14 +65,12 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
                     : <div className={css.vacancyItem__title}>{profession}</div>
                 }
 
-
                 <button
                     className={css.vacancyItem__star_button}
-                    onClick={() => addVacancyHandler(id)}
+                    onClick={() => onClickHandler(id)}
                 >
-                    {iFavoriteVacancy || starPressed
+                    {isFavoriteVacancy
                         ? <img
-                            className={css.vacancyItem__star_default}
                             src={starIconPressed}
                             alt='star icon pressed'/>
                         : <img
@@ -74,6 +78,7 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
                             alt='star icon default'/>
                     }
                 </button>
+
             </div>
 
             <div className={css.vacancyItem__info_wrapper}>

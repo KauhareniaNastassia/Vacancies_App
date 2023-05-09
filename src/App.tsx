@@ -15,10 +15,11 @@ function App() {
 
     const authData = useAppSelector(state => state.auth.data)
     const dispatch = useAppDispatch()
+    const favoriteVacancies = useAppSelector(state => state.favorites)
 
-    /*useEffect(() => {
+    useEffect(() => {
         dispatch(getFavoritesTC())
-    }, [])*/
+    }, [favoriteVacancies.length])
 
     useEffect(() => {
         if (authData === null) {
