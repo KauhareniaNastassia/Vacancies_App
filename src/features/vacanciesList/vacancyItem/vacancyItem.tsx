@@ -26,12 +26,12 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
                                                                 typeOfWorkTitle,
                                                                 townTitle,
                                                                 currency,
-                                                                profession, isLink
-
+                                                                profession,
+                                                                isLink
                                                             }) => {
 
     const dispatch = useAppDispatch()
-    const vacancies = useAppSelector(state => state.vacancies)
+    const vacancies = useAppSelector(state => state.vacancies.objects)
     const favorites = useAppSelector(state => state.favorites)
     const favoriteVacancy = favorites.find(el => el.id == id)
     const [isFavoriteVacancy, setIsFavoriteVacancy] = useState<boolean>()

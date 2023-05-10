@@ -2,17 +2,24 @@ import React, {useEffect, useState} from "react";
 import {FilterBar} from "../../features/filterBar/filterBar";
 import {VacanciesList} from "../../features/vacanciesList/vacanciesList";
 import {InputSearch} from "../../features/inputSearch/InputSearch";
-import {Pagination} from "../pagination/pagination";
+import {PaginationComponent} from "../pagination/pagination";
 import css from './searchPage.module.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {getVacanciesTC} from "../../redux/vacanciesReducer";
+import {getVacanciesTC, VacancyType} from "../../redux/vacanciesReducer";
 import {getFavoritesTC} from "../../redux/favoritesReducer";
 
 
 export const SearchPage: React.FC = ({}) => {
     const dispatch = useAppDispatch()
     const [searchValue, setSearchValue] = useState<string>('');
-    const vacancies = useAppSelector(state => state.vacancies)
+    const vacancies = useAppSelector(state => state.vacancies.objects)
+
+    const [start, setStart] = useState(0)
+    const [end, setEnd] = useState(4)
+
+    const [cardsForDisplay, setCardsForDisplay] = useState(vacancies);
+
+    let displayedObjects = cardsForDisplay?.slice(start, end)
 
     useEffect(() => {
         dispatch(getFavoritesTC())
@@ -21,12 +28,17 @@ export const SearchPage: React.FC = ({}) => {
     useEffect(() => {
 
         let dataForSearch = {
-
+            keyword: undefined,
+            payment_from: undefined,
+            payment_to: undefined,
+            catalogues: undefined
         }
 
         dispatch(getVacanciesTC(dataForSearch))
+        setCardsForDisplay(vacancies)
     }, [])
 
+    console.log(start, end)
 
     return (
         <section className={css.searchPage__wrapper}>
@@ -38,8 +50,9 @@ export const SearchPage: React.FC = ({}) => {
                     searchValue={searchValue}
                     setSearchValue={setSearchValue}
                 />
-                <VacanciesList vacancies={vacancies}/>
-                <Pagination/>
+                <VacanciesList vacancies={displayedObjects}/>
+                <PaginationComponent setStart={setStart}
+                                     setEnd={setEnd}/>
             </div>
         </section>
     )

@@ -5,14 +5,20 @@ import {authAPI} from "../api/authAPI";
 import {vacanciesAPI} from "../api/vacanciesAPI";
 
 
-const initialState: InitialVacanciesStateType = [] as VacancyType[]
+const initialState: InitialVacanciesStateType ={
+    objects: [] as VacancyType[],
+    total: 0
+}
 
 
 
 export const vacanciesReducer = (state: InitialVacanciesStateType = initialState, action: VacanciesActionsType): InitialVacanciesStateType => {
     switch (action.type) {
         case "vacancies/SET-VACANCIES":
-            return action.objects.map(el => ({...el, isFavorite: false}))
+            return {
+                ...state, objects: action.objects, total: action.total
+            }
+
 
 
         default:
@@ -22,9 +28,9 @@ export const vacanciesReducer = (state: InitialVacanciesStateType = initialState
 
 
 //actions
-export const setVacanciesAC = (objects: VacancyType[]) => ({
+export const setVacanciesAC = (objects: VacancyType[], total: number) => ({
     type: 'vacancies/SET-VACANCIES',
-    objects
+    objects, total
 } as const)
 
 
@@ -34,7 +40,7 @@ export const getVacanciesTC = (params: VacanciesParamsType): AppThunkType =>
         dispatch(setAppStatusAC('loading'))
         try {
             const res = await vacanciesAPI.getVacancies(params)
-            dispatch(setVacanciesAC(res.data.objects))
+            dispatch(setVacanciesAC(res.data.objects, res.data.total))
             console.log(res)
             dispatch(setAppStatusAC('succeeded'))
         }
@@ -52,7 +58,10 @@ export const getVacanciesTC = (params: VacanciesParamsType): AppThunkType =>
 export type VacanciesActionsType =
     | ReturnType<typeof setVacanciesAC>
 
-type InitialVacanciesStateType =  VacancyType[]
+type InitialVacanciesStateType = {
+    objects: VacancyType[]
+    total: number
+}
 
 /*export type ObjectsDomainType = VacancyType & {
     isFavorite: boolean
