@@ -3,9 +3,10 @@ import {AppThunkType} from "./store";
 import {setAppStatusAC} from "./appReducer";
 import {authAPI} from "../api/authAPI";
 import {vacanciesAPI} from "../api/vacanciesAPI";
+import {cataloguesAPI} from "../api/catalogueAPI";
 
 
-const initialState: InitialSearchStateType ={
+const initialState: InitialSearchStateType = {
     params: {
         published: 1,
         keyword: '',
@@ -13,12 +14,11 @@ const initialState: InitialSearchStateType ={
         //page: number,
         payment_from: null,
         payment_to: null,
-        catalogues: [],
+        catalogues: [] as CatalogueType[],
         no_agreement: 1
     }
 
 }
-
 
 
 export const searchReducer = (state: InitialSearchStateType = initialState, action: SearchActionsType): InitialSearchStateType => {
@@ -28,7 +28,10 @@ export const searchReducer = (state: InitialSearchStateType = initialState, acti
             return {
                 ...state, params: {...state, keyword: action.keyword}
             }
-
+        case "vacancies/SET-CATALOGUES":
+            return {
+                ...state, params: {...state, catalogues: action.catalogues}
+            }
 
 
         default:
@@ -39,9 +42,9 @@ export const searchReducer = (state: InitialSearchStateType = initialState, acti
 
 //actions
 
-export const setParamsAC = (params: VacanciesParamsType) => ({
-    type: 'vacancies/SET-PARAMS',
-    params
+export const setCataloguesAC = (catalogues: CatalogueType[]) => ({
+    type: 'vacancies/SET-CATALOGUES',
+    catalogues
 } as const)
 export const setKeywordAC = (keyword: string) => ({
     type: 'vacancies/SET-KEYWORD',
@@ -50,28 +53,24 @@ export const setKeywordAC = (keyword: string) => ({
 
 
 // thunks
-export const getVacanciesTC = (params: VacanciesParamsType): AppThunkType =>
+export const getCataloguesTC = (): AppThunkType =>
     async (dispatch) => {
         dispatch(setAppStatusAC('loading'))
         try {
-            const res = await vacanciesAPI.getVacancies(params)
-
+            const res = await cataloguesAPI.getCatalogues()
+            dispatch(setCataloguesAC(res.data))
             console.log(res)
             dispatch(setAppStatusAC('succeeded'))
-        }
-        catch(err) {
+        } catch (err) {
             console.log(err)
             dispatch(setAppStatusAC('failed'))
         }
     }
 
 
-
-
-
 //types
 export type SearchActionsType =
-    | ReturnType<typeof setParamsAC>
+    | ReturnType<typeof setCataloguesAC>
     | ReturnType<typeof setKeywordAC>
 
 type InitialSearchStateType = {
@@ -86,6 +85,12 @@ export type VacanciesParamsType = {
     keyword?: string,
     payment_from?: number | null,
     payment_to?: number | null,
-    catalogues?: [],
+    catalogues?: CatalogueType[],
     no_agreement?: number
+}
+
+export type CatalogueType = {
+    title: string
+    title_trimmed: string
+    key: number
 }
