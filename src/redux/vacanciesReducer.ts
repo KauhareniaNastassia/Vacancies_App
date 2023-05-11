@@ -8,6 +8,17 @@ import {vacanciesAPI} from "../api/vacanciesAPI";
 const initialState: InitialVacanciesStateType ={
     objects: [] as VacancyType[],
    // total: 1000
+    params: {
+        published: 1,
+        keyword: '',
+        count: 100,
+        //page: number,
+        payment_from: null,
+        payment_to: null,
+        catalogues: [],
+        no_agreement: 1
+    }
+
 }
 
 
@@ -17,6 +28,10 @@ export const vacanciesReducer = (state: InitialVacanciesStateType = initialState
         case "vacancies/SET-VACANCIES":
             return {
                 ...state, objects: action.objects,
+            }
+        case "vacancies/SET-KEYWORD":
+            return {
+                ...state, params: {...state, keyword: action.keyword}
             }
 
 
@@ -31,6 +46,14 @@ export const vacanciesReducer = (state: InitialVacanciesStateType = initialState
 export const setVacanciesAC = (objects: VacancyType[]) => ({
     type: 'vacancies/SET-VACANCIES',
     objects
+} as const)
+export const setParamsAC = (params: VacanciesParamsType) => ({
+    type: 'vacancies/SET-PARAMS',
+    params
+} as const)
+export const setKeywordAC = (keyword: string) => ({
+    type: 'vacancies/SET-KEYWORD',
+    keyword
 } as const)
 
 
@@ -57,9 +80,12 @@ export const getVacanciesTC = (params: VacanciesParamsType): AppThunkType =>
 //types
 export type VacanciesActionsType =
     | ReturnType<typeof setVacanciesAC>
+     | ReturnType<typeof setParamsAC>
+     | ReturnType<typeof setKeywordAC>
 
 type InitialVacanciesStateType = {
     objects: VacancyType[]
+    params: VacanciesParamsType
    // total: number
 }
 
@@ -108,11 +134,12 @@ export type GetVacanciesResponseType = {
     subscription_active: boolean
 }
 export type VacanciesParamsType = {
+    published?: number
     count?: number,
     page?: number,
     keyword?: string,
-    payment_from?: number,
-    payment_to?: number,
+    payment_from?: number | null,
+    payment_to?: number | null,
     catalogues?: [],
     no_agreement?: number
 }

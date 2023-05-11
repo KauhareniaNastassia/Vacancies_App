@@ -12,22 +12,30 @@ import {useSearchParams} from "react-router-dom";
 
 export const SearchPage: React.FC = ({}) => {
     const dispatch = useAppDispatch()
-    const [searchValue, setSearchValue] = useState<string>('');
+
     const vacancies = useAppSelector(state => state.vacancies.objects)
+    const paramsForVacanciesSearch = useAppSelector(state => state.vacancies.params)
 
     const [start, setStart] = useState(0)
     const [end, setEnd] = useState(4)
 
     const [searchParams, setSearchParams] = useSearchParams()
     const pageUrl = searchParams.get('page') ? searchParams.get('page') + '' : '1'
+    const keywordURL = searchParams.get('keyword') ? searchParams.get('keyword') + '' : ''
 
     const [params, setParams] = useState({
         page: 1,
-
+        keyword: ''
     })
+
     const handleChangePage = (page: number) => {
         setParams({ ...params, page })
         setSearchParams({ page: page + '' })
+    }
+
+    const handleSearchValue = (keyword: string) => {
+        setParams({ ...params, keyword })
+        setSearchParams({ keyword: keyword + '' })
     }
 
 
@@ -38,12 +46,20 @@ export const SearchPage: React.FC = ({}) => {
         dispatch(getFavoritesTC())
     }, [])
 
+    console.log(paramsForVacanciesSearch.keyword)
+    console.log(paramsForVacanciesSearch.count)
+
 
     useEffect(() => {
-        setSearchParams({ page: pageUrl})
-        setParams({ page: +pageUrl})
-
         let dataForSearch = {
+            published: 1,
+            keyword: paramsForVacanciesSearch.keyword,
+            count: paramsForVacanciesSearch.count,
+            //page: number,
+            payment_from: null,
+            payment_to: null,
+            //catalogues: [],
+            no_agreement: 1,
             page: +pageUrl,
         }
         dispatch(getVacanciesTC(dataForSearch))
@@ -59,13 +75,13 @@ export const SearchPage: React.FC = ({}) => {
 
             <div className={css.searchPage__content_wrapper}>
                 <InputSearch
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
+                    handleSearchValue={handleSearchValue}
+
                 />
                 <VacanciesList vacancies={displayedObjects}/>
                 <PaginationComponent setStart={setStart}
                                      setEnd={setEnd}
-                                     itemsCount={100}
+                                     itemsCount={paramsForVacanciesSearch.count!}
                                      handleChangePage={handleChangePage}
 
                                      />
