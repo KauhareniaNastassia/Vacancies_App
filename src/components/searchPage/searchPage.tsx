@@ -7,6 +7,7 @@ import css from './searchPage.module.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getVacanciesTC, VacancyType} from "../../redux/vacanciesReducer";
 import {getFavoritesTC} from "../../redux/favoritesReducer";
+import {useSearchParams} from "react-router-dom";
 
 
 export const SearchPage: React.FC = ({}) => {
@@ -17,28 +18,39 @@ export const SearchPage: React.FC = ({}) => {
     const [start, setStart] = useState(0)
     const [end, setEnd] = useState(4)
 
-    const [cardsForDisplay, setCardsForDisplay] = useState(vacancies);
+    const [searchParams, setSearchParams] = useSearchParams()
+    const pageUrl = searchParams.get('page') ? searchParams.get('page') + '' : '1'
 
+    const [params, setParams] = useState({
+        page: 1,
+
+    })
+    const handleChangePage = (page: number) => {
+        setParams({ ...params, page })
+        setSearchParams({ page: page + '' })
+    }
+
+
+    const [cardsForDisplay, setCardsForDisplay] = useState<VacancyType[]>(vacancies);
     let displayedObjects = cardsForDisplay?.slice(start, end)
 
     useEffect(() => {
         dispatch(getFavoritesTC())
     }, [])
 
+
     useEffect(() => {
+        setSearchParams({ page: pageUrl})
+        setParams({ page: +pageUrl})
 
         let dataForSearch = {
-            keyword: undefined,
-            payment_from: undefined,
-            payment_to: undefined,
-            catalogues: undefined
+            page: +pageUrl,
         }
-
         dispatch(getVacanciesTC(dataForSearch))
         setCardsForDisplay(vacancies)
-    }, [vacancies])
+    }, [])
 
-    console.log(start, end)
+
 
     return (
         <section className={css.searchPage__wrapper}>
@@ -52,7 +64,11 @@ export const SearchPage: React.FC = ({}) => {
                 />
                 <VacanciesList vacancies={displayedObjects}/>
                 <PaginationComponent setStart={setStart}
-                                     setEnd={setEnd}/>
+                                     setEnd={setEnd}
+                                     itemsCount={100}
+                                     handleChangePage={handleChangePage}
+
+                                     />
             </div>
         </section>
     )

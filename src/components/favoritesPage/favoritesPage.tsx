@@ -1,38 +1,51 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
 import {VacancyItem} from "../../features/vacanciesList/vacancyItem/vacancyItem";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getFavoritesTC} from "../../redux/favoritesReducer";
 import css from './favoritesPage.module.scss'
+import {PaginationComponent} from "../pagination/pagination";
+import {VacancyType} from "../../redux/vacanciesReducer";
 
 
 export const FavoritesPage: React.FC = () => {
 
     const dispatch = useAppDispatch()
     const favoriteVacancies = useAppSelector(state => state.favorites)
+    const [start, setStart] = useState(0)
+    const [end, setEnd] = useState(4)
+    const [cardsForDisplay, setCardsForDisplay] = useState<VacancyType[]>(favoriteVacancies);
+    let displayedObjects = cardsForDisplay?.slice(start, end)
 
-  /*  useEffect(() => {
-        dispatch(getFavoritesTC())
-    }, [favoriteVacancies.length])*/
 
     return (
-        <section className={css.favoritesList__wrapper}>
+        <section className={css.favoritesPage__wrapper}>
+            <div className={css.favoritesList__wrapper}>
+                {favoriteVacancies.length !== 0 ?
+                    displayedObjects.map((el) =>
+                        <VacancyItem
+                            key={el.id}
+                            id={el.id}
+                            profession={el.profession}
+                            paymentFrom={el.payment_from}
+                            currency={el.currency}
+                            typeOfWorkTitle={el.type_of_work.title}
+                            townTitle={el.town.title}
+                            isLink={!!el.id}
+                        />
+                    )
+                    : <NotFoundPage/>
+                }
+            </div>
 
-            {favoriteVacancies.length !== 0 ?
-                favoriteVacancies.map((el) =>
-                    <VacancyItem
-                        key={el.id}
-                        id={el.id}
-                        profession={el.profession}
-                        paymentFrom={el.payment_from}
-                        currency={el.currency}
-                        typeOfWorkTitle={el.type_of_work.title}
-                        townTitle={el.town.title}
-                        isLink={!!el.id}
-                    />
-                )
-                : <NotFoundPage/>
+            {
+                favoriteVacancies.length > 4 && <PaginationComponent
+                itemsCount={favoriteVacancies.length}
+                    setStart={setStart}
+                    setEnd={setEnd}/>
             }
+
+
 
 
         </section>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import css from './pagination.module.scss'
 
 
@@ -9,30 +9,35 @@ import {getVacanciesTC} from "../../redux/vacanciesReducer";
 type PaginationComponentPropsType = {
     setStart: (startIndex: number) => void
     setEnd: (endIndex: number) => void
+    itemsCount: number
+    handleChangePage?: (page: number) => void
 }
 
-export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({setStart,setEnd }) => {
+export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({
+                                                                                setStart,
+                                                                                setEnd, handleChangePage,
+                                                                                itemsCount
+                                                                            }) => {
 
-    const total = useAppSelector(state => state.vacancies.total)
+    // const total = useAppSelector(state => state.vacancies.total)
     const [activePage, setPage] = useState(1);
 
     const startIndex = (activePage - 1) * 4;
     const endIndex = startIndex + 4;
 
-    /*const onChangeGetVacanciesForPage = () => {
-        setStart(startIndex)
-        setEnd(endIndex)
-    }*/
 
     useEffect(() => {
         setStart(startIndex)
         setEnd(endIndex)
+        if (handleChangePage) {
+            handleChangePage(activePage)
+        }
     }, [activePage])
 
 
     return (
         <section className={css.pagination__wrapper}>
-            <Pagination total={Math.ceil(total / 4)}
+            <Pagination total={Math.ceil(itemsCount / 4)}
                         styles={{
                             control: {
                                 '&[data-active]': {
@@ -42,7 +47,7 @@ export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({set
                         }}
                         value={activePage}
                         onChange={setPage}
-                       // onClick={onChangeGetVacanciesForPage}
+
 
             />
 

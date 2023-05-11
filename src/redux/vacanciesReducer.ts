@@ -7,7 +7,7 @@ import {vacanciesAPI} from "../api/vacanciesAPI";
 
 const initialState: InitialVacanciesStateType ={
     objects: [] as VacancyType[],
-    total: 0
+   // total: 1000
 }
 
 
@@ -16,7 +16,7 @@ export const vacanciesReducer = (state: InitialVacanciesStateType = initialState
     switch (action.type) {
         case "vacancies/SET-VACANCIES":
             return {
-                ...state, objects: action.objects, total: action.total
+                ...state, objects: action.objects,
             }
 
 
@@ -28,9 +28,9 @@ export const vacanciesReducer = (state: InitialVacanciesStateType = initialState
 
 
 //actions
-export const setVacanciesAC = (objects: VacancyType[], total: number) => ({
+export const setVacanciesAC = (objects: VacancyType[]) => ({
     type: 'vacancies/SET-VACANCIES',
-    objects, total
+    objects
 } as const)
 
 
@@ -40,7 +40,7 @@ export const getVacanciesTC = (params: VacanciesParamsType): AppThunkType =>
         dispatch(setAppStatusAC('loading'))
         try {
             const res = await vacanciesAPI.getVacancies(params)
-            dispatch(setVacanciesAC(res.data.objects, res.data.total))
+            dispatch(setVacanciesAC(res.data.objects))
             console.log(res)
             dispatch(setAppStatusAC('succeeded'))
         }
@@ -60,7 +60,7 @@ export type VacanciesActionsType =
 
 type InitialVacanciesStateType = {
     objects: VacancyType[]
-    total: number
+   // total: number
 }
 
 /*export type ObjectsDomainType = VacancyType & {
