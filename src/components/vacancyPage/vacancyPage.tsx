@@ -17,6 +17,7 @@ export const VacancyPage: React.FC = () => {
         dispatch(getVacancyTC(Number(id)))
     }, [id])
 
+
     return (
         <section className={css.vacancyPage__wrapper}>
             <VacancyItem

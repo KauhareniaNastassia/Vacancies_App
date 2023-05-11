@@ -46,7 +46,7 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
                 let vacancyForFavorites = vacancies.find(el => el.id === id)!
                 if (vacancyForFavorites) {
                     dispatch(addVacancyToFavoritesTC(vacancyForFavorites))
-                  setIsFavoriteVacancy(true)
+                    setIsFavoriteVacancy(true)
                 }
             }
         }
@@ -83,7 +83,9 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
 
             <div className={css.vacancyItem__info_wrapper}>
                 <span>
-                    з/п от {paymentFrom} {currency}
+                   {paymentFrom === 0
+                       ? 'з/п договорная'
+                       : `з/п от ${paymentFrom} ${currency}`}
                 </span>
                 <img src={dotIcon} alt='dot icon'/>
                 <span>

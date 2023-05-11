@@ -12,7 +12,7 @@ export const VacancyInfo:React.FC<VacancyInfoPropsType> = ({info}) => {
         if (spanRef.current) {
             spanRef.current.innerHTML = info;
         }
-    }, [spanRef]);
+    }, [spanRef, info]);
 
     return (
         <section className={css.vacancyInfo__wrapper}>

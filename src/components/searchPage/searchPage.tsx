@@ -36,7 +36,7 @@ export const SearchPage: React.FC = ({}) => {
 
         dispatch(getVacanciesTC(dataForSearch))
         setCardsForDisplay(vacancies)
-    }, [])
+    }, [vacancies])
 
     console.log(start, end)
 

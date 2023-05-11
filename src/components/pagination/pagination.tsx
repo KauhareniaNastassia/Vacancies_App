@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import css from './pagination.module.scss'
 
 
-import { Pagination } from '@mantine/core';
+import {Pagination} from '@mantine/core';
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getVacanciesTC} from "../../redux/vacanciesReducer";
 
@@ -11,33 +11,38 @@ type PaginationComponentPropsType = {
     setEnd: (endIndex: number) => void
 }
 
-export const PaginationComponent:React.FC <PaginationComponentPropsType> = ({setStart, setEnd}) => {
+export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({setStart,setEnd }) => {
 
-    const vacancies=useAppSelector(state => state.vacancies)
-    const [activePage, setActivePage] = useState(1);
+    const total = useAppSelector(state => state.vacancies.total)
+    const [activePage, setPage] = useState(1);
 
     const startIndex = (activePage - 1) * 4;
     const endIndex = startIndex + 4;
 
-    const onChangeGetVacanciesForPage = () => {
-        setActivePage(activePage)
+    /*const onChangeGetVacanciesForPage = () => {
         setStart(startIndex)
         setEnd(endIndex)
-    }
+    }*/
+
+    useEffect(() => {
+        setStart(startIndex)
+        setEnd(endIndex)
+    }, [activePage])
 
 
     return (
         <section className={css.pagination__wrapper}>
-            <Pagination total={Math.ceil(vacancies.total/4)}
+            <Pagination total={Math.ceil(total / 4)}
                         styles={{
-                            control:{
+                            control: {
                                 '&[data-active]': {
                                     backgroundColor: '#5E96FC'
                                 }
                             }
                         }}
-
-                        onChange={onChangeGetVacanciesForPage}
+                        value={activePage}
+                        onChange={setPage}
+                       // onClick={onChangeGetVacanciesForPage}
 
             />
 
