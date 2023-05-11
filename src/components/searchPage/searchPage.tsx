@@ -46,20 +46,11 @@ export const SearchPage: React.FC = ({}) => {
         dispatch(getFavoritesTC())
     }, [])
 
-    console.log(paramsForVacanciesSearch.keyword)
-    console.log(paramsForVacanciesSearch.count)
+
 
 
     useEffect(() => {
         let dataForSearch = {
-            published: 1,
-            keyword: paramsForVacanciesSearch.keyword,
-            count: paramsForVacanciesSearch.count,
-            //page: number,
-            payment_from: null,
-            payment_to: null,
-            //catalogues: [],
-            no_agreement: 1,
             page: +pageUrl,
         }
         dispatch(getVacanciesTC(dataForSearch))

@@ -5,6 +5,7 @@ import {AuthActionsType, authReducer} from "./authReducer";
 import {VacanciesActionsType, vacanciesReducer} from "./vacanciesReducer";
 import {VacancyActionsType, vacancyReducer} from "./vacancyReducer";
 import {FavoritesActionsType, favoritesReducer} from "./favoritesReducer";
+import {SearchActionsType, searchReducer} from "./searchReducer";
 
 
 const RootReducer = combineReducers({
@@ -13,6 +14,7 @@ const RootReducer = combineReducers({
     vacancies: vacanciesReducer,
     vacancy: vacancyReducer,
     favorites: favoritesReducer,
+    search: searchReducer
 })
 
 // @ts-ignore
@@ -28,6 +30,7 @@ export type ActionsType =
     | VacanciesActionsType
     | VacancyActionsType
     | FavoritesActionsType
+    | SearchActionsType
 
 
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, ActionsType>
