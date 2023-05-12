@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
 import {VacancyItem} from "../../features/vacanciesList/vacancyItem/vacancyItem";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {getFavoritesTC} from "../../redux/favoritesReducer";
+import {useAppSelector} from "../../hooks/hooks";
 import css from './favoritesPage.module.scss'
 import {PaginationComponent} from "../pagination/pagination";
 import {VacancyType} from "../../redux/vacanciesReducer";
@@ -10,12 +9,15 @@ import {VacancyType} from "../../redux/vacanciesReducer";
 
 export const FavoritesPage: React.FC = () => {
 
-    const dispatch = useAppDispatch()
     const favoriteVacancies = useAppSelector(state => state.favorites)
     const [start, setStart] = useState(0)
     const [end, setEnd] = useState(4)
     const [cardsForDisplay, setCardsForDisplay] = useState<VacancyType[]>(favoriteVacancies);
     let displayedObjects = cardsForDisplay?.slice(start, end)
+
+    useEffect(() => {
+        setCardsForDisplay(favoriteVacancies)
+    }, [favoriteVacancies.length])
 
 
     return (
