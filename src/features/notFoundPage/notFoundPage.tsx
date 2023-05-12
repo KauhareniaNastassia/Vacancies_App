@@ -23,7 +23,7 @@ export const NotFoundPage: React.FC = () => {
 
             <ButtonComponent
                 title='Поиск вакансий'
-                onClickHandler={() => navigate('/search')}
+                onClickHandler={() => navigate('/vacancies')}
             />
 
         </section>
