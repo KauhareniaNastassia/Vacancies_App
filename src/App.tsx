@@ -11,6 +11,7 @@ import {authByPasswordTC, refreshTokenTC} from "./redux/authReducer";
 import {VacancyType} from "./redux/vacanciesReducer";
 import {getFavoritesTC} from "./redux/favoritesReducer";
 import {Loader} from "./common/loader/loader";
+import {NotFoundPage} from "./features/notFoundPage/notFoundPage";
 
 function App() {
 
@@ -46,7 +47,7 @@ function App() {
                     <Route path="/vacancies" element={<SearchPage/>}/>
                     <Route path="/favorites" element={<FavoritesPage/>}/>
                     <Route path="/vacancies/:id" element={<VacancyPage/>}/>
-
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Routes>
             </div>
 

@@ -52,7 +52,6 @@
           filter: invert(59%) sepia(13%) saturate(7430%) hue-rotate(196deg) brightness(99%) contrast(99%);
         }
 
-
         label {
           @include text(16px, 19px, 700, $text_color);
         }

@@ -2,6 +2,7 @@ import React from "react";
 import css from './header.module.scss'
 import joboredLogo from '../../assets/img/joboredLogo.png'
 import {NavLink} from "react-router-dom";
+import {BurgerMenu} from "../../common/burgerMenu/burgerMenu";
 
 export const Header: React.FC = () => {
 
@@ -27,6 +28,10 @@ export const Header: React.FC = () => {
                             Избранное
                         </NavLink>
                     </div>
+                </div>
+
+                <div className={css.header__burger_menu_wrapper}>
+                    <BurgerMenu/>
                 </div>
             </div>
         </section>

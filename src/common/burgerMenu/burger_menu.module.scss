@@ -1,0 +1,106 @@
+@import "src/common/styles/mixins/mixins";
+@import "src/common/styles/variables/variables";
+
+
+.burger_wrapper {
+  position: relative;
+
+  .menu__btn {
+    width: 32px;
+    height: 32px;
+    padding: 6.67px 2.67px;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: 320px) {
+      width: 24px;
+      height: 24px;
+    }
+
+    .menu__btn_span {
+      width: 26.67px;
+      height: 2.67px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $text_color;
+      transition: all 0.5s;
+      border-radius: 10px;
+
+      @media (max-width: 320px) {
+        width: 20px;
+        height: 2px;
+      }
+    }
+  }
+
+  .menu_close {
+    .menu__btn_span:nth-of-type(2) {
+      top: calc(50% - 8px);
+
+      @media (max-width: 320px) {
+        top: calc(50% - 5.5px);
+      }
+    }
+
+    .menu__btn_span:nth-of-type(3) {
+      top: calc(50% + 8px);
+
+      @media (max-width: 320px) {
+        top: calc(50% + 5.7px);
+      }
+    }
+  }
+
+  .menu_open {
+    .menu__btn_span:nth-of-type(1) {
+      display: none;
+    }
+
+    .menu__btn_span:nth-of-type(2) {
+      background-color: $blue_color;
+      top: 50%;
+      transform: translate(-50%, 0%) rotate(45deg);
+    }
+
+    .menu__btn_span:nth-of-type(3) {
+      background-color: $blue_color;
+      top: 50%;
+      transform: translate(-50%, 0%) rotate(-45deg);
+    }
+  }
+
+  .burger_popUp {
+    position: absolute;
+    background-color: $elements_background_color;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    width: 130px;
+    z-index: 2;
+    right: 3px;
+    top: 40px;
+    padding: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    .burger_popUp__link {
+      @include text(16px, 20px, 400, $text_color);
+      text-decoration: none;
+
+      &:active {
+        @include text(16px, 20px, 500, $blue_color);
+      }
+
+    }
+  }
+}
+
+
+

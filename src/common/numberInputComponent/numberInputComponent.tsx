@@ -33,7 +33,6 @@ export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({l
             }}
             rightSection={
                 <div className={css.filterBar__filter_arrows}>
-
                     <img src={arrowUp}
                          className={css.filterBar__filter_arrow_icon}
                          alt='arrow up'
