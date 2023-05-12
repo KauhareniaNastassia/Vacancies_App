@@ -10,12 +10,14 @@ import {useAppDispatch, useAppSelector} from "./hooks/hooks";
 import {authByPasswordTC, refreshTokenTC} from "./redux/authReducer";
 import {VacancyType} from "./redux/vacanciesReducer";
 import {getFavoritesTC} from "./redux/favoritesReducer";
+import {Loader} from "./common/loader/loader";
 
 function App() {
 
     const authData = useAppSelector(state => state.auth.data)
     const dispatch = useAppDispatch()
     const favoriteVacancies = useAppSelector(state => state.favorites)
+    const status = useAppSelector(state => state.app.status)
 
     useEffect(() => {
         dispatch(getFavoritesTC())
@@ -32,6 +34,10 @@ function App() {
 
     return (
         <div className={css.app__wrapper}>
+
+            {status === 'loading' && <Loader/>}
+
+
             <Header/>
 
             <div className={css.app__content_wrapper}>

@@ -31,7 +31,15 @@ const dispatch = useAppDispatch()
             icon={<img src={searchIcon} alt='search icon'/>}
             placeholder="Введите название вакансии"
             radius={'8px'}
-            styles={{ input: { height: '48px', borderColor: '#EAEBED', fontSize: '14px'}}}
+            styles={{
+                input: {
+                    height: '48px',
+                    borderColor: '#EAEBED',
+                    fontSize: '14px',
+                    '&:hover': {
+                        borderColor: '#5E96FC'
+                    }
+                }}}
             rightSectionWidth={100}
             rightSection={<ButtonComponent onClickHandler={onClickHandleSearchValue} title='Поиск'/>}
         />

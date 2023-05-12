@@ -58,7 +58,7 @@ export const setKeywordAC = (keyword: string) => ({
 
 
 // thunks
-export const getVacanciesTC = (params: VacanciesParamsType): AppThunkType =>
+export const getVacanciesTC = (params?: VacanciesParamsType): AppThunkType =>
     async (dispatch) => {
         dispatch(setAppStatusAC('loading'))
         try {

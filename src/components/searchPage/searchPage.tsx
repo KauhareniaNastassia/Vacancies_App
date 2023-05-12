@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getVacanciesTC, VacancyType} from "../../redux/vacanciesReducer";
 import {getFavoritesTC} from "../../redux/favoritesReducer";
 import {useSearchParams} from "react-router-dom";
+import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
 
 
 export const SearchPage: React.FC = ({}) => {
@@ -25,58 +26,65 @@ export const SearchPage: React.FC = ({}) => {
 
     const [params, setParams] = useState({
         page: 1,
-        keyword: ''
+
     })
 
     const handleChangePage = (page: number) => {
-        setParams({ ...params, page })
-        setSearchParams({ page: page + '' })
+        setParams({...params, page})
+        setSearchParams({page: page + ''})
     }
 
     const handleSearchValue = (keyword: string) => {
-        setParams({ ...params, keyword })
-        setSearchParams({ keyword: keyword + '' })
+        //setParams({...params, keyword})
+        setSearchParams({keyword: keyword + ''})
     }
 
 
     const [cardsForDisplay, setCardsForDisplay] = useState<VacancyType[]>(vacancies);
-    let displayedObjects = cardsForDisplay?.slice(start, end)
+    let displayedObjects = vacancies?.slice(start, end)
 
     useEffect(() => {
         dispatch(getFavoritesTC())
     }, [])
 
 
-
-
     useEffect(() => {
+        /*setParams({page: +pageUrl})
+        setSearchParams(pageUrl)
+
+
         let dataForSearch = {
             page: +pageUrl,
-        }
-        dispatch(getVacanciesTC(dataForSearch))
-        setCardsForDisplay(vacancies)
+        }*/
+        dispatch(getVacanciesTC())
+        //setCardsForDisplay(vacancies)
     }, [])
-
 
 
     return (
         <section className={css.searchPage__wrapper}>
 
-         <FilterBar/>
+            <FilterBar/>
 
-            <div className={css.searchPage__content_wrapper}>
-                <InputSearch
-                    handleSearchValue={handleSearchValue}
+            {vacancies
+                ? <div className={css.searchPage__content_wrapper}>
+                    <InputSearch
+                        handleSearchValue={handleSearchValue}
 
-                />
-                <VacanciesList vacancies={displayedObjects}/>
-                <PaginationComponent setStart={setStart}
-                                     setEnd={setEnd}
-                                     itemsCount={paramsForVacanciesSearch.count!}
-                                     handleChangePage={handleChangePage}
+                    />
+                    <VacanciesList vacancies={displayedObjects}/>
+                    <PaginationComponent setStart={setStart}
+                                         setEnd={setEnd}
+                                         itemsCount={paramsForVacanciesSearch.count!}
+                                         handleChangePage={handleChangePage}
 
-                                     />
-            </div>
+                    />
+                </div>
+                : <NotFoundPage/>
+
+            }
+
+
         </section>
     )
 }

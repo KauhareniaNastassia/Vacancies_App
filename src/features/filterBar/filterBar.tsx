@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, RefAttributes, useEffect, useState} from "react";
 import css from './filterBar.module.scss'
 import closeIcon from '../../assets/img/closeIcon.svg'
 import {Select} from "@mantine/core";
@@ -15,7 +15,12 @@ export const FilterBar: React.FC = () => {
     const catalogues = useAppSelector(state => state.search.params.catalogues)
 
     const [catalogue, setCatalogue] = useState<string | null>(null);
+    const [isCataloguesOpen, setIsCataloguesOpen] = useState<boolean>(false)
 
+    const onChangeCatalogueValue = (value: string) => {
+        setCatalogue(value)
+        setIsCataloguesOpen(false)
+    }
 
 
     useEffect(() => {
@@ -39,24 +44,41 @@ export const FilterBar: React.FC = () => {
                         <Select
                             label="Отрасль"
                             placeholder="Выберете отрасль"
-                            rightSection={<img src={arrowDown}/>}
+                            rightSection={<img
+                                className={
+                                    isCataloguesOpen
+                                        ? css.filterBar__filter_arrow_icon
+                                        : ''}
+                                src={arrowDown}/>}
                             rightSectionWidth={0}
                             className={css.filterBar__filter_item}
                             styles={{
                                 rightSection: {pointerEvents: 'none'},
-                                input: {borderColor: '#EAEBED', borderRadius: '8px'},
+                                input: {
+                                    borderColor: '#EAEBED',
+                                    borderRadius: '8px',
+                                    '&:hover': {
+                                        borderColor: '#5E96FC'
+                                    }
+                                },
+                                item: {
+                                    '&[data-selected]': {
+                                        '&, &:hover': {backgroundColor: '#5E96FC'}
+                                    },
+                                }
                             }}
                             searchable
                             data={catalogues.map(el => ({
                                 value: el.key.toString(),
-                                label: el.title
+                                label: el.title.length > 34 ? el.title.slice(0, 30) + '...' : el.title
                             }))}
                             value={catalogue}
-                            onChange={setCatalogue}
+                            onChange={onChangeCatalogueValue}
+                            onClick={() => setIsCataloguesOpen(!isCataloguesOpen)}
+                            onBlur={() => setIsCataloguesOpen(false)}
                         />
                     </div>
                 }
-
 
 
                 <div className={css.filterBar__filter}>
