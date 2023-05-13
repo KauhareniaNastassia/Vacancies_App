@@ -7,4 +7,14 @@
   gap: 20px;
   @include background(24px);
   width: 773px;
+  @include text(16px, 22px, 400, $text_color);
+
+  @media (max-width: 400px) {
+    @include text(14px, 20px, 400, $text_color);
+  }
+
+
+  @media(max-width: 1250px) {
+    width: inherit;
+  }
 }
