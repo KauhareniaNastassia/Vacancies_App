@@ -8,17 +8,32 @@
   @include background(24px);
   width: 773px;
 
+  @media(max-width: 1250px) {
+    width: inherit;
+  }
+ /* @media(max-width: 1000px) {
+    width: 92%;
+  }*/
+
   .vacancyItem__title_wrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+   gap: 10px;
 
     .vacancyItem__title_link {
       text-decoration: none;
       cursor: pointer;
       margin: 0;
-      @include text(20px, 24px, 600, $blue_color)
+      @include text(20px, 24px, 600, $blue_color);
+
+      @media(max-width: 1150px) {
+        @include text(18px, 22px, 600, $blue_color);
+      }
+      @media(max-width: 900px) {
+        @include text(16px, 20px, 600, $blue_color);
+      }
     }
 
     .vacancyItem__title {
@@ -46,6 +61,21 @@
     gap: 12px;
     @include text(16px, 20px, 400, $text_color);
 
+    @media (max-width: 900px) {
+      @include text(14px, 18px, 400, $text_color);
+    }
+    @media (max-width: 400px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    img {
+      @media (max-width: 400px) {
+        display: none;
+      }
+    }
+
     :first-child {
       font-weight: 600;
     }
@@ -57,5 +87,13 @@
     align-items: center;
     gap: 8px;
     @include text(16px, 19px, 400, $text_color);
+
+    @media (max-width: 900px) {
+      @include text(14px, 18px, 400, $text_color);
+    }
+
+    img {
+      width: 20px;
+    }
   }
 }

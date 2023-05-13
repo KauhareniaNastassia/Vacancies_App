@@ -8,6 +8,10 @@
   gap: 32px;
   @include background(20px);
 
+  @media (max-width: 800px) {
+    display: none;
+  }
+
   .filterBar__title_wrapper {
     display: flex;
     flex-direction: row;
