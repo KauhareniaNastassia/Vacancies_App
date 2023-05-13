@@ -38,12 +38,14 @@ export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({
     return (
         <section className={css.pagination__wrapper}>
             <Pagination total={Math.ceil(itemsCount / 4)}
+                        size={window.innerWidth < 600 ? 'sm' : 'md'}
                         styles={{
                             control: {
                                 '&[data-active]': {
                                     backgroundColor: '#5E96FC'
                                 }
-                            }
+                            },
+
                         }}
                         value={activePage}
                         onChange={setPage}

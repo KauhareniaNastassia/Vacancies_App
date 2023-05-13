@@ -38,8 +38,14 @@ const dispatch = useAppDispatch()
                     fontSize: '14px',
                     '&:hover': {
                         borderColor: '#5E96FC'
+                    },
+                    '@media(max-width:400px)': {
+                        height: '40px',
                     }
-                }}}
+                },
+
+
+        }}
             rightSectionWidth={100}
             rightSection={<ButtonComponent onClickHandler={onClickHandleSearchValue} title='Поиск'/>}
         />
