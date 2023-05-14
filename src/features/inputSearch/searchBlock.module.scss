@@ -1,0 +1,53 @@
+@import "src/common/styles/mixins/mixins";
+@import "src/common/styles/variables/variables";
+
+
+.search__block__wrapper {
+
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    //width: 100%;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .search__block_input {
+    width: 100%;
+  }
+
+
+  .search__block_filter_button_wrapper {
+
+    .search__block_filter_button{
+      display: none;
+
+      @media (max-width: 800px) {
+        display: inline-block;
+        height: 100%;
+        padding: 10px;
+        border: none;
+        @include background(0px 13px);
+        // background-color: $elements_background_color;
+        // background-color: $elements_background_color;
+      }
+    }
+
+    .search__block_filter_button_pressed {
+      background-color: $blue_color;
+
+      img {
+        filter: invert(89%) sepia(89%) saturate(6%) hue-rotate(184deg) brightness(111%) contrast(97%);
+      }
+    }
+
+    .search__block_filterBar_block {
+      position: absolute;
+      right: 0px;
+      top: 47px;
+      z-index: 2;
+    }
+  }
+
+  }

@@ -1,10 +1,10 @@
 import React, {ChangeEvent, ChangeEventHandler, useState} from "react";
-import {ButtonComponent} from "../../common/button/buttonComponent";
+import {ButtonComponent} from "../../../common/button/buttonComponent";
 
-import searchIcon from '../../assets/img/searchIcon.svg'
+import searchIcon from '../../../assets/img/searchIcon.svg'
 import {Input} from '@mantine/core';
-import {useAppDispatch} from "../../hooks/hooks";
-import {setKeywordAC, setParamsAC} from "../../redux/vacanciesReducer";
+import {useAppDispatch} from "../../../hooks/hooks";
+import {setKeywordAC, setParamsAC} from "../../../redux/vacanciesReducer";
 
 type InputSearchPropsType = {
     /*searchValue: string,

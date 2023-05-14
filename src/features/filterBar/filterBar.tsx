@@ -7,6 +7,7 @@ import {ButtonComponent} from "../../common/button/buttonComponent";
 import {NumberInputComponent} from "../../common/numberInputComponent/numberInputComponent";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getCataloguesTC, setCataloguesAC} from "../../redux/searchReducer";
+import it from "node:test";
 
 
 export const FilterBar: React.FC = () => {
@@ -28,6 +29,8 @@ export const FilterBar: React.FC = () => {
     }, [])
 
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <section className={css.filterBar__wrapper}>
             <div className={css.filterBar__title_wrapper}>
@@ -40,7 +43,9 @@ export const FilterBar: React.FC = () => {
             <div className={css.filterBar__filters_wrapper}>
 
                 {catalogues &&
-                    <div className={css.filterBar__filter}>
+                    <div className={css.filterBar__filter}
+                         onClick={(e) => e.stopPropagation()}
+                    >
                         <Select
                             label="Отрасль"
                             placeholder="Выберете отрасль"
@@ -68,13 +73,23 @@ export const FilterBar: React.FC = () => {
                                 }
                             }}
                             searchable
-                            data={catalogues.map(el => ({
+                            /*data={catalogues.map(el => ({
                                 value: el.key.toString(),
                                 label: el.title.length > 34 ? el.title.slice(0, 30) + '...' : el.title
-                            }))}
+                            }))}*/
+
+                            data={catalogues.map(el => (
+                                <option value={el.key.toString()}
+                                label={el.title.length > 34 ? el.title.slice(0, 30) + '...' : el.title}/>
+                            ))}
+
                             value={catalogue}
                             onChange={onChangeCatalogueValue}
-                            onClick={() => setIsCataloguesOpen(!isCataloguesOpen)}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setIsCataloguesOpen(!isCataloguesOpen)
+                            }
+                        }
                             onBlur={() => setIsCataloguesOpen(false)}
                         />
                     </div>

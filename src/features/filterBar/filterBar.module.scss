@@ -8,9 +8,6 @@
   gap: 32px;
   @include background(20px);
 
-  @media (max-width: 800px) {
-    display: none;
-  }
 
   .filterBar__title_wrapper {
     display: flex;
@@ -18,6 +15,11 @@
     justify-content: space-between;
     align-items: center;
     gap: 67px;
+
+    @media(max-width: 1250px) {
+      gap: 50px;
+    }
+
 
     .filterBar__title_name {
       margin: 0;
@@ -33,6 +35,10 @@
       background-color: transparent;
       align-items: center;
       padding: 0;
+
+      @media(max-width: 1250px) {
+        @include text(14px, 12px, 500, $unactive_text_color);
+      }
     }
   }
 

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {FilterBar} from "../../features/filterBar/filterBar";
 import {VacanciesList} from "../../features/vacanciesList/vacanciesList";
-import {InputSearch} from "../../features/inputSearch/InputSearch";
 import {PaginationComponent} from "../pagination/pagination";
 import css from './searchPage.module.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
@@ -9,6 +8,7 @@ import {getVacanciesTC, VacancyType} from "../../redux/vacanciesReducer";
 import {getFavoritesTC} from "../../redux/favoritesReducer";
 import {useSearchParams} from "react-router-dom";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
+import {SearchBlock} from "../../features/inputSearch/searchBlock";
 
 
 export const SearchPage: React.FC = ({}) => {
@@ -64,14 +64,32 @@ export const SearchPage: React.FC = ({}) => {
     return (
         <section className={css.searchPage__wrapper}>
 
-            <FilterBar/>
+
+            <div className={css.searchPage__filter_block}>
+                <FilterBar/>
+            </div>
+
+
 
             {vacancies
                 ? <div className={css.searchPage__content_wrapper}>
-                    <InputSearch
-                        handleSearchValue={handleSearchValue}
 
-                    />
+                    <SearchBlock handleSearchValue={handleSearchValue}/>
+
+                   {/* <div className={css.searchPage__content_search_wrapper}>
+                        <div className={css.searchPage__content_search_input}>
+                            <InputSearch
+                                handleSearchValue={handleSearchValue}
+                            />
+                        </div>
+
+
+                        <button className={css.searchPage__content_search_filter}>
+                            <img src={filterIcon} alt='filter icon'/>
+                        </button>
+                    </div>*/}
+
+
                     <VacanciesList vacancies={displayedObjects}/>
                     <PaginationComponent setStart={setStart}
                                          setEnd={setEnd}
