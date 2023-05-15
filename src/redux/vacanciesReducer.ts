@@ -134,12 +134,14 @@ export type GetVacanciesResponseType = {
     subscription_active: boolean
 }
 export type VacanciesParamsType = {
-    published?: number
-    count?: number,
-    page?: number,
     keyword?: string,
+    page?: number,
+    catalogues?: [],
     payment_from?: number | null,
     payment_to?: number | null,
-    catalogues?: [],
+    count?: number,
+
+
+    published?: number
     no_agreement?: number
 }

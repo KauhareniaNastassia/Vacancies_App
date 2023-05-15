@@ -9,6 +9,7 @@ import {getFavoritesTC} from "../../redux/favoritesReducer";
 import {useSearchParams} from "react-router-dom";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
 import {SearchBlock} from "../../features/inputSearch/searchBlock";
+import {getCataloguesTC} from "../../redux/searchReducer";
 
 
 export const SearchPage: React.FC = ({}) => {
@@ -16,24 +17,22 @@ export const SearchPage: React.FC = ({}) => {
 
     const vacancies = useAppSelector(state => state.vacancies.objects)
     const paramsForVacanciesSearch = useAppSelector(state => state.vacancies.params)
-
     const [start, setStart] = useState(0)
     const [end, setEnd] = useState(4)
+
+
 
     const [searchParams, setSearchParams] = useSearchParams()
     const pageUrl = searchParams.get('page') ? searchParams.get('page') + '' : '1'
     const keywordURL = searchParams.get('keyword') ? searchParams.get('keyword') + '' : ''
-
     const [params, setParams] = useState({
         page: 1,
 
     })
-
     const handleChangePage = (page: number) => {
         setParams({...params, page})
         setSearchParams({page: page + ''})
     }
-
     const handleSearchValue = (keyword: string) => {
         //setParams({...params, keyword})
         setSearchParams({keyword: keyword + ''})
@@ -47,17 +46,16 @@ export const SearchPage: React.FC = ({}) => {
         dispatch(getFavoritesTC())
     }, [])
 
+    useEffect(() => {
+        dispatch(getCataloguesTC())
+    }, [])
+
+
 
     useEffect(() => {
-        /*setParams({page: +pageUrl})
-        setSearchParams(pageUrl)
 
-
-        let dataForSearch = {
-            page: +pageUrl,
-        }*/
         dispatch(getVacanciesTC())
-        //setCardsForDisplay(vacancies)
+
     }, [])
 
 
@@ -70,25 +68,10 @@ export const SearchPage: React.FC = ({}) => {
             </div>
 
 
-
             {vacancies
                 ? <div className={css.searchPage__content_wrapper}>
 
                     <SearchBlock handleSearchValue={handleSearchValue}/>
-
-                   {/* <div className={css.searchPage__content_search_wrapper}>
-                        <div className={css.searchPage__content_search_input}>
-                            <InputSearch
-                                handleSearchValue={handleSearchValue}
-                            />
-                        </div>
-
-
-                        <button className={css.searchPage__content_search_filter}>
-                            <img src={filterIcon} alt='filter icon'/>
-                        </button>
-                    </div>*/}
-
 
                     <VacanciesList vacancies={displayedObjects}/>
                     <PaginationComponent setStart={setStart}
@@ -101,7 +84,6 @@ export const SearchPage: React.FC = ({}) => {
                 : <NotFoundPage/>
 
             }
-
 
         </section>
     )
