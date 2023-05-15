@@ -11,16 +11,13 @@
   @media(max-width: 1250px) {
     width: inherit;
   }
- /* @media(max-width: 1000px) {
-    width: 92%;
-  }*/
 
   .vacancyItem__title_wrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-   gap: 10px;
+    gap: 10px;
 
     .vacancyItem__title_link {
       text-decoration: none;

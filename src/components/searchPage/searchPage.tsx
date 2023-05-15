@@ -15,12 +15,15 @@ import {getCataloguesTC} from "../../redux/searchReducer";
 export const SearchPage: React.FC = ({}) => {
     const dispatch = useAppDispatch()
 
+    const favoriteVacancies = useAppSelector(state => state.favorites)
     const vacancies = useAppSelector(state => state.vacancies.objects)
     const paramsForVacanciesSearch = useAppSelector(state => state.vacancies.params)
+
+    const [searchValue, setSearchValue] = useState<string>('');
+    console.log(searchValue)
+
     const [start, setStart] = useState(0)
     const [end, setEnd] = useState(4)
-
-
 
     const [searchParams, setSearchParams] = useSearchParams()
     const pageUrl = searchParams.get('page') ? searchParams.get('page') + '' : '1'
@@ -44,45 +47,51 @@ export const SearchPage: React.FC = ({}) => {
 
     useEffect(() => {
         dispatch(getFavoritesTC())
-    }, [])
+    }, [favoriteVacancies.length])
 
     useEffect(() => {
         dispatch(getCataloguesTC())
     }, [])
 
 
-
     useEffect(() => {
 
-        dispatch(getVacanciesTC())
+        let params = {
+            keyword: searchValue ? searchValue : '',
+            page: 1,
+            catalogues: '',
+            payment_from:null,
+            payment_to: null,
+            }
 
-    }, [])
+        dispatch(getVacanciesTC(params))
+
+    }, [searchValue ])
 
 
     return (
         <section className={css.searchPage__wrapper}>
 
-
             <div className={css.searchPage__filter_block}>
                 <FilterBar/>
             </div>
 
-
             {vacancies
                 ? <div className={css.searchPage__content_wrapper}>
 
-                    <SearchBlock handleSearchValue={handleSearchValue}/>
-
+                    <SearchBlock
+                        searchValue={searchValue}
+                        onChangeSetSearchValue={setSearchValue}
+                        handleSearchValue={handleSearchValue}
+                    />
                     <VacanciesList vacancies={displayedObjects}/>
                     <PaginationComponent setStart={setStart}
                                          setEnd={setEnd}
                                          itemsCount={paramsForVacanciesSearch.count!}
                                          handleChangePage={handleChangePage}
-
                     />
                 </div>
                 : <NotFoundPage/>
-
             }
 
         </section>

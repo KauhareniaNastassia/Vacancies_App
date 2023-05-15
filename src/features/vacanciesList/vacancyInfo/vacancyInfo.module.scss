@@ -12,8 +12,6 @@
   @media (max-width: 400px) {
     @include text(14px, 20px, 400, $text_color);
   }
-
-
   @media(max-width: 1250px) {
     width: inherit;
   }

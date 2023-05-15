@@ -24,7 +24,6 @@
 
     @media (max-width: 500px) {
       width: 200px;
-      //margin-top: 0px;
     }
   }
 
@@ -37,16 +36,11 @@
   }
 
   .notFoundPage__button {
-   // padding: 10px 20px;
-    //background: #DEECFF;
-    //border-radius: 8px;
-    //border: none;
     @include text(14px, 155%, 500, $pressed_blue_color);
     cursor: pointer;
 
     @media (max-width: 500px) {
       @include text(12px, 100%, 500, $pressed_blue_color);
-      //padding: 8px 15px;
     }
   }
 }

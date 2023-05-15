@@ -6,7 +6,6 @@ import {ButtonComponent} from "../../common/button/buttonComponent";
 
 
 export const NotFoundPage: React.FC = () => {
-
     const navigate = useNavigate()
 
     return (
@@ -17,6 +16,7 @@ export const NotFoundPage: React.FC = () => {
                 alt='not found page icon'
                 className={css.notFoundPage__icon}
             />
+
             <span className={css.notFoundPage__message}>
                 Упс, здесь еще ничего нет!
             </span>

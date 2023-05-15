@@ -8,27 +8,29 @@ import {useDisclosure} from "@mantine/hooks";
 
 type InputSearchBlockPropsType = {
     handleSearchValue: (keyword: string) => void
+
+    searchValue: string
+    onChangeSetSearchValue: (searchValue: string) => void
 }
 
-export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({handleSearchValue}) => {
+export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
+                                                                     handleSearchValue,
+                                                                     searchValue,
+                                                                     onChangeSetSearchValue
+                                                                 }) => {
 
-    const [isFilterBarOpen, setIsFilterBarOpen] = useState<boolean>(false)
-    const [isFilterButtonPressed, setIsFilterButtonPressed] = useState<boolean>(false)
+
     const node = useRef<HTMLDivElement>(null);
     const [opened, handlers] = useDisclosure(false);
 
-    const onClickCloseFilterBar = () => {
-        setIsFilterBarOpen(false)
-        setIsFilterButtonPressed(false)
-    }
-
-    useOnClickOutsideCloseSideBar(node, onClickCloseFilterBar);
 
     return (
         <section className={css.search__block__wrapper}>
 
             <div className={css.search__block_input}>
                 <InputSearch
+                    searchValue={searchValue}
+                    onChangeSetSearchValue={onChangeSetSearchValue}
                     handleSearchValue={handleSearchValue}
                 />
             </div>
@@ -38,11 +40,11 @@ export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({handleSearchVa
 
             >
                 <button
-                    className={isFilterButtonPressed ? `${css.search__block_filter_button} ${css.search__block_filter_button_pressed}` : css.search__block_filter_button}
+                    className={opened
+                        ? `${css.search__block_filter_button} ${css.search__block_filter_button_pressed}`
+                        : css.search__block_filter_button}
                     onClick={() => {
-                        setIsFilterButtonPressed(true)
                         handlers.toggle()
-                        //setIsFilterBarOpen(!isFilterBarOpen)
                     }}
                 >
                     <img src={filterIcon} alt='filter icon'/>
@@ -50,8 +52,7 @@ export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({handleSearchVa
 
                 {
                     opened &&
-                    <div className={css.search__block_filterBar_block}
-                         onClick={(e) => e.stopPropagation()}>
+                    <div className={css.search__block_filterBar_block}>
                         <FilterBar/>
                     </div>
                 }

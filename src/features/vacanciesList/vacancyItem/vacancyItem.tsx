@@ -36,7 +36,6 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
     const favoriteVacancy = favorites.find(el => el.id == id)
     const [isFavoriteVacancy, setIsFavoriteVacancy] = useState<boolean>()
 
-
     const onClickHandler = async (id: number) => {
         if (vacancies) {
             if (favoriteVacancy) {
@@ -58,7 +57,9 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
 
     return (
         <section className={css.vacancyItem__wrapper}>
+
             <div className={css.vacancyItem__title_wrapper}>
+
                 {isLink
                     ? <NavLink to={`/vacancies/${id}`}
                                className={css.vacancyItem__title_link}>{profession}</NavLink>
@@ -82,6 +83,7 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
             </div>
 
             <div className={css.vacancyItem__info_wrapper}>
+
                 <span>
                    {paymentFrom === 0
                        ? 'з/п договорная'
@@ -91,11 +93,14 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
                 <span>
                     {typeOfWorkTitle}
                 </span>
+
             </div>
 
             <div className={css.vacancyItem__location_wrapper}>
+
                 <img src={locationIcon} alt='location icon'/>
                 <span>{townTitle}</span>
+
             </div>
 
         </section>

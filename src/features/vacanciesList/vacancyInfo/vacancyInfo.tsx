@@ -5,7 +5,7 @@ type VacancyInfoPropsType = {
     info: string
 }
 
-export const VacancyInfo:React.FC<VacancyInfoPropsType> = ({info}) => {
+export const VacancyInfo: React.FC<VacancyInfoPropsType> = ({info}) => {
     const spanRef = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
@@ -16,7 +16,9 @@ export const VacancyInfo:React.FC<VacancyInfoPropsType> = ({info}) => {
 
     return (
         <section className={css.vacancyInfo__wrapper}>
-            <span ref={spanRef} />
+
+            <span ref={spanRef}/>
+
         </section>
     )
 }

@@ -20,9 +20,9 @@ function App() {
     const favoriteVacancies = useAppSelector(state => state.favorites)
     const status = useAppSelector(state => state.app.status)
 
-    useEffect(() => {
+  /*  useEffect(() => {
         dispatch(getFavoritesTC())
-    }, [favoriteVacancies.length])
+    }, [favoriteVacancies.length])*/
 
     useEffect(() => {
         if (authData === null) {
@@ -37,7 +37,6 @@ function App() {
         <div className={css.app__wrapper}>
 
             {status === 'loading' && <Loader/>}
-
 
             <Header/>
 

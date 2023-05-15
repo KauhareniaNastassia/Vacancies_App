@@ -15,7 +15,7 @@ const initialState: InitialVacanciesStateType ={
         //page: number,
         payment_from: null,
         payment_to: null,
-        catalogues: [],
+        //catalogues: [],
         no_agreement: 1
     }
 
@@ -64,6 +64,7 @@ export const getVacanciesTC = (params?: VacanciesParamsType): AppThunkType =>
         try {
             const res = await vacanciesAPI.getVacancies(params)
             dispatch(setVacanciesAC(res.data.objects))
+            console.log(params?.keyword)
             console.log(res)
             dispatch(setAppStatusAC('succeeded'))
         }
@@ -136,7 +137,7 @@ export type GetVacanciesResponseType = {
 export type VacanciesParamsType = {
     keyword?: string,
     page?: number,
-    catalogues?: [],
+    catalogues?: string,
     payment_from?: number | null,
     payment_to?: number | null,
     count?: number,

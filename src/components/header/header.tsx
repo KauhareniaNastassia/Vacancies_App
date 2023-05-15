@@ -8,7 +8,9 @@ export const Header: React.FC = () => {
 
     return (
         <section className={css.header__wrapper}>
+
             <div className={css.header__content_wrapper}>
+
                 <NavLink to='/'>
                     <img src={joboredLogo} alt='joboredLogo'/>
                 </NavLink>
@@ -33,7 +35,9 @@ export const Header: React.FC = () => {
                 <div className={css.header__burger_menu_wrapper}>
                     <BurgerMenu/>
                 </div>
+
             </div>
+
         </section>
     )
 }

@@ -12,14 +12,13 @@ export const VacancyPage: React.FC = () => {
     const {id} = useParams()
     const vacancy = useAppSelector(state => state.vacancy)
 
-
     useEffect(() => {
         dispatch(getVacancyTC(Number(id)))
     }, [id])
 
-
     return (
         <section className={css.vacancyPage__wrapper}>
+
             <VacancyItem
                 id={vacancy.id}
                 currency={vacancy.currency}
@@ -31,6 +30,7 @@ export const VacancyPage: React.FC = () => {
             />
 
             <VacancyInfo info={vacancy.vacancyRichText}/>
+
         </section>
     )
 }
