@@ -53,7 +53,7 @@ export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
                 {
                     opened &&
                     <div className={css.search__block_filterBar_block}>
-                        <FilterBar/>
+                        {/*<FilterBar/>*/}
                     </div>
                 }
             </div>

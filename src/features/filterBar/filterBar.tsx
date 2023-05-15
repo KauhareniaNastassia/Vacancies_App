@@ -8,28 +8,37 @@ import {NumberInputComponent} from "../../common/numberInputComponent/numberInpu
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getCataloguesTC, setCataloguesAC} from "../../redux/searchReducer";
 import it from "node:test";
+import {VacanciesParamsType} from "../../redux/vacanciesReducer";
 
+type FilterBarPropsType = {
+    setFilters: (filters: VacanciesParamsType | undefined) => void
+}
 
-export const FilterBar: React.FC = () => {
+export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
 
-    const dispatch = useAppDispatch()
     const catalogues = useAppSelector(state => state.search.params.catalogues)
 
     const [catalogue, setCatalogue] = useState<string>('');
     const [isCataloguesOpen, setIsCataloguesOpen] = useState<boolean>(false)
 
-    const onChangeCatalogueValue = ( value: string) => {
+    const [paymentFrom, setPaymentFrom] = useState<number | undefined>(undefined)
+    const [paymentTo, setPaymentTo] = useState<number | undefined>(undefined)
 
+
+    const onChangeCatalogueValue = (value: string) => {
         setCatalogue(value)
         setIsCataloguesOpen(false)
     }
 
-/*
+ const onClickSetFilters = () => {
+     setFilters({
+         catalogues: catalogue ? catalogue : '',
+         payment_from: paymentFrom ? paymentFrom : undefined,
+         payment_to: paymentTo ? paymentTo : undefined
+     })
+ }
 
-    useEffect(() => {
-        dispatch(getCataloguesTC())
-    }, [])
-*/
+
 
     return (
         <section className={css.filterBar__wrapper}>
@@ -73,22 +82,13 @@ export const FilterBar: React.FC = () => {
                             searchable
                             data={catalogues.map(el => ({
                                 value: el.key.toString(),
-                                label: el.title.length > 34 ? el.title.slice(0, 30) + '...' : el.title,
-                               /* onMouseDown: (e: React.MouseEvent<HTMLInputElement>) => {
-                                    e.stopPropagation()
-                                }*/
+                                label: el.title.length > 34 ? el.title.slice(0, 30) + '...' : el.title
                             }))}
-
-
                             value={catalogue}
-
                             onChange={onChangeCatalogueValue}
-
                             onClick={() => {
                                 setIsCataloguesOpen(!isCataloguesOpen)
-                            }
-
-                        }
+                            }}
                             onBlur={() => setIsCataloguesOpen(false)}
                         />
                     </div>
@@ -96,62 +96,21 @@ export const FilterBar: React.FC = () => {
 
 
                 <div className={css.filterBar__filter}>
-                    <NumberInputComponent label='Оклад' placeholder='От'/>
-                    <NumberInputComponent placeholder='До'/>
+                    <NumberInputComponent
+                        label='Оклад'
+                        placeholder='От'
+                        paymentNumber={paymentFrom}
+                        setPaymentNumber={setPaymentFrom}
+                    />
+                    <NumberInputComponent
+                        placeholder='До'
+                        paymentNumber={paymentTo}
+                        setPaymentNumber={setPaymentTo}
+                    />
                 </div>
 
-                <ButtonComponent title='Применить'/>
+                <ButtonComponent onClickHandler={onClickSetFilters} title='Применить'/>
             </div>
         </section>
     )
 }
-
-
-
-
-/*
-<NativeSelect
-    label="Отрасль"
-    placeholder="Выберете отрасль"
-    rightSection={<img
-        className={
-            isCataloguesOpen
-                ? css.filterBar__filter_arrow_icon
-                : ''}
-        src={arrowDown}/>}
-    rightSectionWidth={0}
-    className={css.filterBar__filter_item}
-    styles={{
-        rightSection: {pointerEvents: 'none'},
-        input: {
-            borderColor: '#EAEBED',
-            borderRadius: '8px',
-            '&:hover': {
-                borderColor: '#5E96FC'
-            }
-        },
-        /!*item: {
-            '&[data-selected]': {
-                '&, &:hover': {backgroundColor: '#5E96FC'}
-            },
-        }*!/
-    }}
-    // searchable
-    data={catalogues.map(el => ({
-        value: el.key.toString(),
-        label: el.title.length > 34 ? el.title.slice(0, 30) + '...' : el.title,
-        onClick: (e: React.MouseEvent<HTMLInputElement>) => {
-            e.stopPropagation()
-        }
-    }))}
-
-
-    value={catalogue}
-    onChange={onChangeCatalogueValue}
-
-    onClick={() => {
-        setIsCataloguesOpen(!isCataloguesOpen)
-    }
-    }
-    onBlur={() => setIsCataloguesOpen(false)}
-/>*/

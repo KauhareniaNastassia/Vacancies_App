@@ -7,18 +7,30 @@ import arrowUp from "../../assets/img/smallArrowUp.svg"
 type NumberInputComponentPropsType = {
     label?: string
     placeholder: string
+    paymentNumber: number | undefined
+    setPaymentNumber: (paymentNumber: number | undefined) => void
 }
 
-export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({label, placeholder}) => {
+export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({
+                                                                                  label,
+                                                                                  placeholder,
+                                                                                  setPaymentNumber,
+                                                                                  paymentNumber
+                                                                              }) => {
     const handlers = useRef<NumberInputHandlers>();
-    const [salaryValue, setSalaryValue] = useState<number>()
+    const [salaryValue, setSalaryValue] = useState<number | undefined>(paymentNumber)
+
+    const onChangeSetSalaryValue = (value: number | "") => {
+        setSalaryValue(+value)
+        setPaymentNumber(salaryValue)
+    }
 
 
     return (
         <NumberInput
             value={salaryValue}
             handlersRef={handlers}
-            onChange={() => setSalaryValue(salaryValue)}
+            onChange={(value) => onChangeSetSalaryValue(value)}
             className={css.filterBar__filter_item}
             styles={{
                 input: {
@@ -29,7 +41,8 @@ export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({l
                     },
                     '&:active': {
                         borderColor: '#5E96FC'
-                    }},
+                    }
+                },
             }}
             rightSection={
                 <div className={css.filterBar__filter_arrows}>

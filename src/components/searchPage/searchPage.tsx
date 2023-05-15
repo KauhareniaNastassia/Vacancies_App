@@ -4,7 +4,7 @@ import {VacanciesList} from "../../features/vacanciesList/vacanciesList";
 import {PaginationComponent} from "../pagination/pagination";
 import css from './searchPage.module.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {getVacanciesTC, VacancyType} from "../../redux/vacanciesReducer";
+import {getVacanciesTC, VacanciesParamsType, VacancyType} from "../../redux/vacanciesReducer";
 import {getFavoritesTC} from "../../redux/favoritesReducer";
 import {useSearchParams} from "react-router-dom";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
@@ -20,7 +20,8 @@ export const SearchPage: React.FC = ({}) => {
     const paramsForVacanciesSearch = useAppSelector(state => state.vacancies.params)
 
     const [searchValue, setSearchValue] = useState<string>('');
-    console.log(searchValue)
+    const [filters, setFilters] = useState<VacanciesParamsType | undefined>(undefined);
+
 
     const [start, setStart] = useState(0)
     const [end, setEnd] = useState(4)
@@ -59,24 +60,26 @@ export const SearchPage: React.FC = ({}) => {
         let params = {
             keyword: searchValue ? searchValue : '',
             page: 1,
-            catalogues: '',
-            payment_from:null,
-            payment_to: null,
+            catalogues: filters?.catalogues ? filters?.catalogues  : '',
+            payment_from: filters?.payment_from ? filters?.payment_from  : null,
+            payment_to: filters?.payment_to ? filters?.payment_to  : null,
             }
 
         dispatch(getVacanciesTC(params))
 
-    }, [searchValue ])
+    }, [searchValue, filters ])
 
 
     return (
         <section className={css.searchPage__wrapper}>
 
             <div className={css.searchPage__filter_block}>
-                <FilterBar/>
+                <FilterBar
+                    setFilters={setFilters}
+                />
             </div>
 
-            {vacancies
+            {vacancies.length
                 ? <div className={css.searchPage__content_wrapper}>
 
                     <SearchBlock
