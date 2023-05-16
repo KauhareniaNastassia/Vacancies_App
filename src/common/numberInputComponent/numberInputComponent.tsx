@@ -20,21 +20,22 @@ export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({
                                                                                   paymentNumber, isFiltersReset
                                                                               }) => {
     const handlers = useRef<NumberInputHandlers>();
-   //const [salaryValue, setSalaryValue] = useState<number | undefined>(paymentNumber)
-    const [value, setValue] = useState<number | ''>(paymentNumber ? paymentNumber : '');
+    const [value, setValue] = useState<number | ''>( '');
 
     useEffect(() => {
         setPaymentNumber(+value)
     }, [value])
 
-   // console.log(paymentNumber)
+    useEffect(() => {
+        setValue(paymentNumber ? paymentNumber : '')
+    }, [paymentNumber])
 
     useEffect(() => {
         if (isFiltersReset) {
             setValue('')
             setPaymentNumber(undefined)
         }
-    }, [isFiltersReset])
+    }, [isFiltersReset, setPaymentNumber])
 
 
     return (

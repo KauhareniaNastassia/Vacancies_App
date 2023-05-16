@@ -35,12 +35,12 @@ export const SearchPage: React.FC = ({}) => {
 
     })
     const handleChangePage = (page: number) => {
-        //setParams({...params, page})
-        //setSearchParams({page: page + ''})
+        setParams({...params, page})
+        setSearchParams({page: page + ''})
     }
     const handleSearchValue = (keyword: string) => {
         //setParams({...params, keyword})
-        //setSearchParams({keyword: keyword + ''})
+        setSearchParams({keyword: keyword + ''})
     }
 
 
