@@ -1,5 +1,5 @@
 import {NumberInput, NumberInputHandlers, NumberInputProps} from "@mantine/core";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import css from './numberInputComponent.module.scss'
 import arrowDown from "../../assets/img/smallArrowDown.svg";
 import arrowUp from "../../assets/img/smallArrowUp.svg"
@@ -22,9 +22,14 @@ export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({
 
     const onChangeSetSalaryValue = (value: number | "") => {
         setSalaryValue(+value)
-        setPaymentNumber(salaryValue)
+
     }
 
+    console.log('salaryValue', salaryValue)
+
+    useEffect(() => {
+        setPaymentNumber(salaryValue)
+    }, [salaryValue])
 
     return (
         <NumberInput

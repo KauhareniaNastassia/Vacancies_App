@@ -33,11 +33,12 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
  const onClickSetFilters = () => {
      setFilters({
          catalogues: catalogue ? catalogue : '',
-         payment_from: paymentFrom ? paymentFrom*10 : undefined,
-         payment_to: paymentTo ? paymentTo*10 : undefined
+         payment_from: paymentFrom ? paymentFrom: undefined,
+         payment_to: paymentTo ? paymentTo : undefined
      })
  }
-
+    console.log('paymentFrom', paymentFrom)
+    console.log('paymentTo', paymentTo)
 
 
     return (

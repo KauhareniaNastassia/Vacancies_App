@@ -59,15 +59,17 @@ export const SearchPage: React.FC = ({}) => {
 
         let params = {
             keyword: searchValue ? searchValue : '',
-            page: 1,
-            catalogues: filters?.catalogues ? filters?.catalogues  : '',
             payment_from: filters?.payment_from ? filters?.payment_from  : null,
             payment_to: filters?.payment_to ? filters?.payment_to  : null,
+            catalogues: filters?.catalogues ? filters?.catalogues  : '',
+            page: 1,
             }
 
         dispatch(getVacanciesTC(params))
 
     }, [searchValue, filters ])
+
+    console.log(filters?.payment_from, filters?.payment_to)
 
 
     return (
