@@ -3,39 +3,46 @@ import React, {useEffect, useRef, useState} from "react";
 import css from './numberInputComponent.module.scss'
 import arrowDown from "../../assets/img/smallArrowDown.svg";
 import arrowUp from "../../assets/img/smallArrowUp.svg"
+import {useInputState} from "@mantine/hooks";
 
 type NumberInputComponentPropsType = {
     label?: string
     placeholder: string
     paymentNumber: number | undefined
     setPaymentNumber: (paymentNumber: number | undefined) => void
+    isFiltersReset: boolean
 }
 
 export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({
                                                                                   label,
                                                                                   placeholder,
                                                                                   setPaymentNumber,
-                                                                                  paymentNumber
+                                                                                  paymentNumber, isFiltersReset
                                                                               }) => {
     const handlers = useRef<NumberInputHandlers>();
-    const [salaryValue, setSalaryValue] = useState<number | undefined>(paymentNumber)
-
-    const onChangeSetSalaryValue = (value: number | "") => {
-        setSalaryValue(+value)
-
-    }
-
-    console.log('salaryValue', salaryValue)
+   //const [salaryValue, setSalaryValue] = useState<number | undefined>(paymentNumber)
+    const [value, setValue] = useState<number | ''>(paymentNumber ? paymentNumber : '');
 
     useEffect(() => {
-        setPaymentNumber(salaryValue)
-    }, [salaryValue])
+        setPaymentNumber(+value)
+    }, [value])
+
+   // console.log(paymentNumber)
+
+    useEffect(() => {
+        if (isFiltersReset) {
+            setValue('')
+            setPaymentNumber(undefined)
+        }
+    }, [isFiltersReset])
+
 
     return (
         <NumberInput
-            value={salaryValue}
+            value={value}
             handlersRef={handlers}
-            onChange={(value) => onChangeSetSalaryValue(value)}
+            onChange={setValue}
+            step={5000}
             className={css.filterBar__filter_item}
             styles={{
                 input: {

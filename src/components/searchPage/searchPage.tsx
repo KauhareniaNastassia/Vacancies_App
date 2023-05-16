@@ -10,11 +10,12 @@ import {useSearchParams} from "react-router-dom";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
 import {SearchBlock} from "../../features/inputSearch/searchBlock";
 import {getCataloguesTC} from "../../redux/searchReducer";
+import {Loader} from "../../common/loader/loader";
 
 
 export const SearchPage: React.FC = ({}) => {
     const dispatch = useAppDispatch()
-
+    const status = useAppSelector(state => state.app.status)
     const favoriteVacancies = useAppSelector(state => state.favorites)
     const vacancies = useAppSelector(state => state.vacancies.objects)
     const paramsForVacanciesSearch = useAppSelector(state => state.vacancies.params)
@@ -34,12 +35,12 @@ export const SearchPage: React.FC = ({}) => {
 
     })
     const handleChangePage = (page: number) => {
-        setParams({...params, page})
-        setSearchParams({page: page + ''})
+        //setParams({...params, page})
+        //setSearchParams({page: page + ''})
     }
     const handleSearchValue = (keyword: string) => {
         //setParams({...params, keyword})
-        setSearchParams({keyword: keyword + ''})
+        //setSearchParams({keyword: keyword + ''})
     }
 
 
@@ -69,11 +70,13 @@ export const SearchPage: React.FC = ({}) => {
 
     }, [searchValue, filters ])
 
-    console.log(filters?.payment_from, filters?.payment_to)
+
 
 
     return (
         <section className={css.searchPage__wrapper}>
+
+     {/*       {status === 'loading' && <Loader/>}*/}
 
             <div className={css.searchPage__filter_block}>
                 <FilterBar

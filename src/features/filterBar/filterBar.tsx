@@ -21,6 +21,7 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
     const [catalogue, setCatalogue] = useState<string>('');
     const [isCataloguesOpen, setIsCataloguesOpen] = useState<boolean>(false)
 
+    const [isFiltersReset, setIsFiltersReset] = useState<boolean>(false)
     const [paymentFrom, setPaymentFrom] = useState<number | undefined>(undefined)
     const [paymentTo, setPaymentTo] = useState<number | undefined>(undefined)
 
@@ -30,22 +31,35 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
         setIsCataloguesOpen(false)
     }
 
- const onClickSetFilters = () => {
-     setFilters({
-         catalogues: catalogue ? catalogue : '',
-         payment_from: paymentFrom ? paymentFrom: undefined,
-         payment_to: paymentTo ? paymentTo : undefined
-     })
- }
-    console.log('paymentFrom', paymentFrom)
-    console.log('paymentTo', paymentTo)
+    const onClickSetFilters = () => {
+        setFilters({
+            catalogues: catalogue ? catalogue : '',
+            payment_from: paymentFrom ? paymentFrom : undefined,
+            payment_to: paymentTo ? paymentTo : undefined
+        })
+    }
+
+    const onClickResetFilters = () => {
+        setIsFiltersReset(true)
+        setCatalogue('')
+        setPaymentFrom(undefined)
+        setPaymentTo(undefined)
+        setFilters({
+            catalogues: '',
+            payment_from: undefined,
+            payment_to: undefined
+        })
+    }
 
 
     return (
         <section className={css.filterBar__wrapper}>
             <div className={css.filterBar__title_wrapper}>
                 <h3 className={css.filterBar__title_name}>Фильтры</h3>
-                <button className={css.filterBar__title_button}>
+                <button
+                    className={css.filterBar__title_button}
+                    onClick={onClickResetFilters}
+                >
                     Сбросить все
                     <img src={closeIcon} alt='close icon'/>
                 </button>
@@ -97,16 +111,19 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
 
 
                 <div className={css.filterBar__filter}>
+
                     <NumberInputComponent
                         label='Оклад'
                         placeholder='От'
                         paymentNumber={paymentFrom}
                         setPaymentNumber={setPaymentFrom}
+                        isFiltersReset={isFiltersReset}
                     />
                     <NumberInputComponent
                         placeholder='До'
                         paymentNumber={paymentTo}
                         setPaymentNumber={setPaymentTo}
+                        isFiltersReset={isFiltersReset}
                     />
                 </div>
 
