@@ -3,36 +3,32 @@ import css from './pagination.module.scss'
 
 
 import {Pagination} from '@mantine/core';
+import {useAppSelector} from "../../hooks/hooks";
 
 type PaginationComponentPropsType = {
-    setStart: (startIndex: number) => void
-    setEnd: (endIndex: number) => void
-    itemsCount: number
-    handleChangePage?: (page: number) => void
+    activePage: number
+    setPage: (activePage: number) => void
+    itemsCount?: number
 }
 
 export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({
-                                                                                setStart,
-                                                                                setEnd,
-                                                                                handleChangePage,
+                                                                                setPage,
+                                                                                activePage,
                                                                                 itemsCount
                                                                             }) => {
-    const [activePage, setPage] = useState(1);
-    const startIndex = (activePage - 1) * 4;
-    const endIndex = startIndex + 4;
+    let total = useAppSelector(state => state.vacancies.total)
 
-    useEffect(() => {
-        setStart(startIndex)
-        setEnd(endIndex)
-        if (handleChangePage) {
-            handleChangePage(activePage)
-        }
-    }, [activePage])
+    if (itemsCount) {
+        total = itemsCount
+    }
 
+    console.log(activePage)
     return (
         <section className={css.pagination__wrapper}>
 
-            <Pagination total={Math.ceil(itemsCount / 4)}
+            <Pagination total={Math.ceil(total > 500
+                ? 500 / 4
+                : total / 4)}
                         size={window.innerWidth < 600 ? 'sm' : 'md'}
                         styles={{
                             control: {

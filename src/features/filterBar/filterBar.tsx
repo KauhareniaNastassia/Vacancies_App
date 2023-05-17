@@ -16,7 +16,7 @@ type FilterBarPropsType = {
 
 export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
 
-    const catalogues = useAppSelector(state => state.search.params.catalogues)
+    const catalogues = useAppSelector(state => state.search.catalogues)
 
     const [catalogue, setCatalogue] = useState<string>('');
     const [isCataloguesOpen, setIsCataloguesOpen] = useState<boolean>(false)

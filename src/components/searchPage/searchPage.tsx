@@ -9,43 +9,35 @@ import {getFavoritesTC} from "../../redux/favoritesReducer";
 import {useSearchParams} from "react-router-dom";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
 import {SearchBlock} from "../../features/inputSearch/searchBlock";
-import {getCataloguesTC} from "../../redux/searchReducer";
+import {getCataloguesTC, updateUrlParamsAC} from "../../redux/searchReducer";
 import {Loader} from "../../common/loader/loader";
 
 
 export const SearchPage: React.FC = ({}) => {
     const dispatch = useAppDispatch()
-    const status = useAppSelector(state => state.app.status)
     const favoriteVacancies = useAppSelector(state => state.favorites)
     const vacancies = useAppSelector(state => state.vacancies.objects)
-    const paramsForVacanciesSearch = useAppSelector(state => state.vacancies.params)
-
+    const [activePage, setPage] = useState(1);
     const [searchValue, setSearchValue] = useState<string>('');
     const [filters, setFilters] = useState<VacanciesParamsType | undefined>(undefined);
 
 
-    const [start, setStart] = useState(0)
-    const [end, setEnd] = useState(4)
-
     const [searchParams, setSearchParams] = useSearchParams()
-    const pageUrl = searchParams.get('page') ? searchParams.get('page') + '' : '1'
-    const keywordURL = searchParams.get('keyword') ? searchParams.get('keyword') + '' : ''
+
     const [params, setParams] = useState({
-        page: 1,
+        page: activePage,
 
     })
     const handleChangePage = (page: number) => {
-        setParams({...params, page})
-        setSearchParams({page: page + ''})
+        setPage(page)
+        // setParams({...params, page})
+        //setSearchParams({page: page + ''})
     }
     const handleSearchValue = (keyword: string) => {
         //setParams({...params, keyword})
         setSearchParams({keyword: keyword + ''})
     }
 
-
-    const [cardsForDisplay, setCardsForDisplay] = useState<VacancyType[]>(vacancies);
-    let displayedObjects = vacancies?.slice(start, end)
 
     useEffect(() => {
         dispatch(getFavoritesTC())
@@ -58,25 +50,37 @@ export const SearchPage: React.FC = ({}) => {
 
     useEffect(() => {
 
-        let params = {
+        let paramsV = {
             keyword: searchValue ? searchValue : '',
-            payment_from: filters?.payment_from ? filters?.payment_from  : null,
-            payment_to: filters?.payment_to ? filters?.payment_to  : null,
-            catalogues: filters?.catalogues ? filters?.catalogues  : '',
-            page: 1,
-            }
+            payment_from: filters?.payment_from ? filters?.payment_from : null,
+            payment_to: filters?.payment_to ? filters?.payment_to : null,
+            catalogues: filters?.catalogues ? filters?.catalogues : '',
+            page: activePage ? activePage : 1,
+        }
 
-        dispatch(getVacanciesTC(params))
+        //dispatch(updateUrlParamsAC(paramsV))
+        dispatch(getVacanciesTC(paramsV))
 
-    }, [searchValue, filters ])
+    }, [searchValue, filters, activePage])
+
+    /*useEffect(() => {
+        const urlParams = {
+            page:  activePage + '',
+            keyword: searchValue + '',
+            catalogues: filters?.catalogues + '',
+            payment_from: filters?.payment_from + '',
+            payment_to: filters?.payment_to + '',
+
+        }
+
+        setSearchParams(urlParams);
+    }, [searchValue, filters, activePage])*/
 
 
-
+    console.log(params.page)
 
     return (
         <section className={css.searchPage__wrapper}>
-
-     {/*       {status === 'loading' && <Loader/>}*/}
 
             <div className={css.searchPage__filter_block}>
                 <FilterBar
@@ -84,24 +88,26 @@ export const SearchPage: React.FC = ({}) => {
                 />
             </div>
 
-            {vacancies.length
-                ? <div className={css.searchPage__content_wrapper}>
+            <div className={css.searchPage__content_wrapper}>
 
-                    <SearchBlock
-                        searchValue={searchValue}
-                        onChangeSetSearchValue={setSearchValue}
-                        handleSearchValue={handleSearchValue}
-                    />
-                    <VacanciesList vacancies={displayedObjects}/>
-                    <PaginationComponent setStart={setStart}
-                                         setEnd={setEnd}
-                                         itemsCount={paramsForVacanciesSearch.count!}
-                                         handleChangePage={handleChangePage}
-                    />
-                </div>
-                : <NotFoundPage/>
-            }
+                <SearchBlock
+                    setFilters={setFilters}
+                    searchValue={searchValue}
+                    onChangeSetSearchValue={setSearchValue}
+                />
 
+                {vacancies.length
+                    ? <>
+                        <VacanciesList vacancies={vacancies}/>
+                        <PaginationComponent
+
+                            activePage={activePage}
+                            setPage={handleChangePage}
+                        />
+                    </>
+                    : <NotFoundPage/>
+                }
+            </div>
         </section>
     )
 }

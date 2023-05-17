@@ -5,18 +5,17 @@ import css from './searchBlock.module.scss'
 import {FilterBar} from "../filterBar/filterBar";
 import {useOnClickOutsideCloseSideBar} from "../../hooks/useOnClickOutsideCloseBurgerMenu";
 import {useDisclosure} from "@mantine/hooks";
+import {VacanciesParamsType} from "../../redux/vacanciesReducer";
 
 type InputSearchBlockPropsType = {
-    handleSearchValue: (keyword: string) => void
-
+    setFilters: (filters: VacanciesParamsType | undefined) => void
     searchValue: string
     onChangeSetSearchValue: (searchValue: string) => void
 }
 
 export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
-                                                                     handleSearchValue,
                                                                      searchValue,
-                                                                     onChangeSetSearchValue
+                                                                     onChangeSetSearchValue, setFilters
                                                                  }) => {
 
 
@@ -31,7 +30,6 @@ export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
                 <InputSearch
                     searchValue={searchValue}
                     onChangeSetSearchValue={onChangeSetSearchValue}
-                    handleSearchValue={handleSearchValue}
                 />
             </div>
 
@@ -53,7 +51,9 @@ export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
                 {
                     opened &&
                     <div className={css.search__block_filterBar_block}>
-                        {/*<FilterBar/>*/}
+                        <FilterBar
+                            setFilters={setFilters}
+                        />
                     </div>
                 }
             </div>

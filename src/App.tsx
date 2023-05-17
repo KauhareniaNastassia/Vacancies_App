@@ -15,23 +15,31 @@ import {NotFoundPage} from "./features/notFoundPage/notFoundPage";
 
 function App() {
 
-    const authData = useAppSelector(state => state.auth.data)
-    const dispatch = useAppDispatch()
     const favoriteVacancies = useAppSelector(state => state.favorites)
     const status = useAppSelector(state => state.app.status)
 
-  /*  useEffect(() => {
-        dispatch(getFavoritesTC())
-    }, [favoriteVacancies.length])*/
+/*    const [locationKeys, setLocationKeys] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
-        if (authData === null) {
-            dispatch(authByPasswordTC())
-        } else if (authData.refresh_token && 1000 * authData.ttl < Date.now()) {
-            dispatch(refreshTokenTC(authData.refresh_token))
-        }
+        return history.listen((location) => {
+            if (history.action === "PUSH") {
+                setLocationKeys([location.key]);
+            }
 
-    }, [authData])
+            if (history.action === "POP") {
+                if (locationKeys[1] === location.key) {
+                    setLocationKeys(([_, ...keys]) => keys);
+
+                    // Handle forward event
+                } else {
+                    setLocationKeys((keys) => [location.key, ...keys]);
+
+                    // Handle back event
+                }
+            }
+        });
+    }, [locationKeys]);*/
 
     return (
         <div className={css.app__wrapper}>

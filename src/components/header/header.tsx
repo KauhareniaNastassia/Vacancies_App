@@ -1,10 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
 import css from './header.module.scss'
 import joboredLogo from '../../assets/img/joboredLogo.png'
 import {NavLink} from "react-router-dom";
 import {BurgerMenu} from "../../common/burgerMenu/burgerMenu";
+import {authByPasswordTC, refreshTokenTC} from "../../redux/authReducer";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 
 export const Header: React.FC = () => {
+    const authData = useAppSelector(state => state.auth.data)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if (authData === null) {
+            dispatch(authByPasswordTC())
+        } else if (authData.refresh_token && 1000 * authData.ttl < Date.now()) {
+            dispatch(refreshTokenTC(authData.refresh_token))
+        }
+
+    }, [authData])
 
     return (
         <section className={css.header__wrapper}>

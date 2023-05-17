@@ -6,7 +6,7 @@
   flex-direction: column;
   gap: 12px;
   @include background(24px);
-  width: 773px;
+  width: 725px;
 
   @media(max-width: 1250px) {
     width: inherit;

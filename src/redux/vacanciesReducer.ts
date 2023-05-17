@@ -7,7 +7,7 @@ import {vacanciesAPI} from "../api/vacanciesAPI";
 
 const initialState: InitialVacanciesStateType ={
     objects: [] as VacancyType[],
-   // total: 1000
+    total: 0,
     params: {
         published: 1,
         keyword: '',
@@ -27,7 +27,7 @@ export const vacanciesReducer = (state: InitialVacanciesStateType = initialState
     switch (action.type) {
         case "vacancies/SET-VACANCIES":
             return {
-                ...state, objects: action.objects,
+                ...state, objects: action.objects, total: action.total
             }
         case "vacancies/SET-KEYWORD":
             return {
@@ -43,9 +43,9 @@ export const vacanciesReducer = (state: InitialVacanciesStateType = initialState
 
 
 //actions
-export const setVacanciesAC = (objects: VacancyType[]) => ({
+export const setVacanciesAC = (objects: VacancyType[], total: number) => ({
     type: 'vacancies/SET-VACANCIES',
-    objects
+    objects, total
 } as const)
 export const setParamsAC = (params: VacanciesParamsType) => ({
     type: 'vacancies/SET-PARAMS',
@@ -63,7 +63,7 @@ export const getVacanciesTC = (params?: VacanciesParamsType): AppThunkType =>
         dispatch(setAppStatusAC('loading'))
         try {
             const res = await vacanciesAPI.getVacancies(params)
-            dispatch(setVacanciesAC(res.data.objects))
+            dispatch(setVacanciesAC(res.data.objects, res.data.total))
             console.log(params?.keyword)
             console.log(res)
             dispatch(setAppStatusAC('succeeded'))
@@ -87,7 +87,7 @@ export type VacanciesActionsType =
 type InitialVacanciesStateType = {
     objects: VacancyType[]
     params: VacanciesParamsType
-   // total: number
+    total: number
 }
 
 /*export type ObjectsDomainType = VacancyType & {

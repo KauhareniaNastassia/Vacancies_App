@@ -7,15 +7,13 @@ import {cataloguesAPI} from "../api/catalogueAPI";
 
 
 const initialState: InitialSearchStateType = {
+    catalogues: [] as CatalogueType[],
     params: {
-        published: 1,
         keyword: '',
-        count: 100,
-        //page: number,
+        page: 1,
         payment_from: null,
         payment_to: null,
-        catalogues: [] as CatalogueType[],
-        no_agreement: 1
+        catalogues: '',
     }
 
 }
@@ -24,14 +22,17 @@ const initialState: InitialSearchStateType = {
 export const searchReducer = (state: InitialSearchStateType = initialState, action: SearchActionsType): InitialSearchStateType => {
     switch (action.type) {
 
-        case "vacancies/SET-KEYWORD":
+       /* case "vacancies/SET-KEYWORD":
             return {
                 ...state, params: {...state, keyword: action.keyword}
-            }
+            }*/
         case "vacancies/SET-CATALOGUES":
             return {
-                ...state, params: {...state, catalogues: action.catalogues}
+                ...state,  catalogues: action.catalogues
             }
+
+        case 'vacancies/UPDATE_URL_PARAMS':
+            return { ...state, params: action.params  }
 
 
         default:
@@ -50,6 +51,10 @@ export const setKeywordAC = (keyword: string) => ({
     type: 'vacancies/SET-KEYWORD',
     keyword
 } as const)
+export const updateUrlParamsAC = (params: VacanciesParamsType) => ({
+    type: 'vacancies/UPDATE_URL_PARAMS' as const,
+    params,
+})
 
 
 // thunks
@@ -72,8 +77,10 @@ export const getCataloguesTC = (): AppThunkType =>
 export type SearchActionsType =
     | ReturnType<typeof setCataloguesAC>
     | ReturnType<typeof setKeywordAC>
+    | ReturnType<typeof updateUrlParamsAC>
 
 type InitialSearchStateType = {
+    catalogues: CatalogueType[],
     params: VacanciesParamsType
     // total: number
 }
@@ -85,7 +92,7 @@ export type VacanciesParamsType = {
     keyword?: string,
     payment_from?: number | null,
     payment_to?: number | null,
-    catalogues?: CatalogueType[],
+    catalogues?: string,
     no_agreement?: number
 }
 

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler, useState} from "react";
+import React, {ChangeEvent, ChangeEventHandler, KeyboardEventHandler, useState} from "react";
 import {ButtonComponent} from "../../../common/button/buttonComponent";
 
 import searchIcon from '../../../assets/img/searchIcon.svg'
@@ -7,22 +7,25 @@ import {useAppDispatch} from "../../../hooks/hooks";
 import {setKeywordAC, setParamsAC} from "../../../redux/vacanciesReducer";
 
 type InputSearchPropsType = {
-    /*searchValue: string,
-    setSearchValue: (value: string) => void*/
-    handleSearchValue: (keyword: string) => void
     searchValue: string
     onChangeSetSearchValue: (searchValue: string) => void
 }
 
 export const InputSearch: React.FC<InputSearchPropsType> = ({
-                                                                handleSearchValue, searchValue,
+                                                                searchValue,
                                                                 onChangeSetSearchValue
                                                             }) => {
 
-    const dispatch = useAppDispatch()
+
     const [search, setSearch] = useState<string>(searchValue);
+
     const onClickHandleSearchValue = () => {
         onChangeSetSearchValue(search)
+    }
+    const onKeyDownSetSearchValue: KeyboardEventHandler = (e ) => {
+        if (e.key === 'Enter') {
+            onChangeSetSearchValue(search)
+        }
     }
 
 
@@ -30,6 +33,7 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
         <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => onKeyDownSetSearchValue(e)}
             icon={<img src={searchIcon} alt='search icon'/>}
             placeholder="Введите название вакансии"
             radius={'8px'}

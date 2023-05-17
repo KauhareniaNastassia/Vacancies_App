@@ -9,7 +9,7 @@ export const vacanciesAPI = {
                 ...params,
                 published: 1,
                 no_agreement: 1,
-                count: 500,
+                count: 4,
 
             }
         })
