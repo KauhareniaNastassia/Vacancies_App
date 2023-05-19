@@ -9,21 +9,23 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getCataloguesTC, setCataloguesAC} from "../../redux/searchReducer";
 import it from "node:test";
 import {VacanciesParamsType} from "../../redux/vacanciesReducer";
+import {FilterType} from "../../components/searchPage/searchPage";
 
 type FilterBarPropsType = {
-    setFilters: (filters: VacanciesParamsType | undefined) => void
+    filters: FilterType
+    setFilters: (filters: FilterType) => void
 }
 
-export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
+export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters, filters}) => {
 
     const catalogues = useAppSelector(state => state.search.catalogues)
-
-    const [catalogue, setCatalogue] = useState<string>('');
+    const searchState = useAppSelector(state => state.search.params)
+    const [catalogue, setCatalogue] = useState<string | undefined>(searchState.catalogues);
     const [isCataloguesOpen, setIsCataloguesOpen] = useState<boolean>(false)
 
     const [isFiltersReset, setIsFiltersReset] = useState<boolean>(false)
-    const [paymentFrom, setPaymentFrom] = useState<number | undefined>(undefined)
-    const [paymentTo, setPaymentTo] = useState<number | undefined>(undefined)
+    const [paymentFrom, setPaymentFrom] = useState<string | undefined>(searchState.payment_from)
+    const [paymentTo, setPaymentTo] = useState<string | undefined>(searchState.payment_to)
 
 
     const onChangeCatalogueValue = (value: string) => {
@@ -34,22 +36,23 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
     const onClickSetFilters = () => {
         setFilters({
             catalogues: catalogue ? catalogue : '',
-            payment_from: paymentFrom ? paymentFrom : undefined,
-            payment_to: paymentTo ? paymentTo : undefined
+            payment_from: paymentFrom ? paymentFrom.toString() : '',
+            payment_to: paymentTo ? paymentTo.toString() : ''
         })
     }
 
     const onClickResetFilters = () => {
         setIsFiltersReset(true)
         setCatalogue('')
-        setPaymentFrom(undefined)
-        setPaymentTo(undefined)
+        setPaymentFrom('')
+        setPaymentTo('')
         setFilters({
             catalogues: '',
-            payment_from: undefined,
-            payment_to: undefined
+            payment_from: '',
+            payment_to: ''
         })
     }
+
 
 
     return (
@@ -115,13 +118,13 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
                     <NumberInputComponent
                         label='Оклад'
                         placeholder='От'
-                        paymentNumber={paymentFrom}
+                        paymentNumber={Number(paymentFrom)}
                         setPaymentNumber={setPaymentFrom}
                         isFiltersReset={isFiltersReset}
                     />
                     <NumberInputComponent
                         placeholder='До'
-                        paymentNumber={paymentTo}
+                        paymentNumber={Number(paymentTo)}
                         setPaymentNumber={setPaymentTo}
                         isFiltersReset={isFiltersReset}
                     />

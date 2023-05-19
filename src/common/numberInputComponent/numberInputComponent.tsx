@@ -9,7 +9,7 @@ type NumberInputComponentPropsType = {
     label?: string
     placeholder: string
     paymentNumber: number | undefined
-    setPaymentNumber: (paymentNumber: number | undefined) => void
+    setPaymentNumber: (paymentNumber: string ) => void
     isFiltersReset: boolean
 }
 
@@ -20,10 +20,10 @@ export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({
                                                                                   paymentNumber, isFiltersReset
                                                                               }) => {
     const handlers = useRef<NumberInputHandlers>();
-    const [value, setValue] = useState<number | ''>( '');
+    const [value, setValue] = useState<number | ''>(Number(paymentNumber));
 
     useEffect(() => {
-        setPaymentNumber(+value)
+        setPaymentNumber(value.toString())
     }, [value])
 
     useEffect(() => {
@@ -33,7 +33,7 @@ export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({
     useEffect(() => {
         if (isFiltersReset) {
             setValue('')
-            setPaymentNumber(undefined)
+            setPaymentNumber('')
         }
     }, [isFiltersReset, setPaymentNumber])
 

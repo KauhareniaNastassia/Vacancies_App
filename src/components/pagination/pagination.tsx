@@ -22,6 +22,10 @@ export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({
         total = itemsCount
     }
 
+    useEffect(() => {
+        setPage(activePage)
+    }, [])
+
     console.log(activePage)
     return (
         <section className={css.pagination__wrapper}>

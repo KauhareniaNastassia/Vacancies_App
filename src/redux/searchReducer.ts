@@ -9,10 +9,10 @@ import {cataloguesAPI} from "../api/catalogueAPI";
 const initialState: InitialSearchStateType = {
     catalogues: [] as CatalogueType[],
     params: {
+        page: '1',
         keyword: '',
-        page: 1,
-        payment_from: null,
-        payment_to: null,
+        payment_from: '',
+        payment_to: '',
         catalogues: '',
     }
 
@@ -51,7 +51,7 @@ export const setKeywordAC = (keyword: string) => ({
     type: 'vacancies/SET-KEYWORD',
     keyword
 } as const)
-export const updateUrlParamsAC = (params: VacanciesParamsType) => ({
+export const updateUrlParamsAC = (params: SearchParamsType) => ({
     type: 'vacancies/UPDATE_URL_PARAMS' as const,
     params,
 })
@@ -81,7 +81,7 @@ export type SearchActionsType =
 
 type InitialSearchStateType = {
     catalogues: CatalogueType[],
-    params: VacanciesParamsType
+    params: SearchParamsType
     // total: number
 }
 
@@ -94,6 +94,14 @@ export type VacanciesParamsType = {
     payment_to?: number | null,
     catalogues?: string,
     no_agreement?: number
+}
+export type SearchParamsType = {
+    count?: string,
+    page?: string,
+    keyword?: string,
+    payment_from?: string,
+    payment_to?: string ,
+    catalogues?: string,
 }
 
 export type CatalogueType = {
