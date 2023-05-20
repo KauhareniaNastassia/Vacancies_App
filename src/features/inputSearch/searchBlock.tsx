@@ -25,7 +25,6 @@ export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
     const [opened, handlers] = useDisclosure(false);
 
 
-
     return (
         <section className={css.search__block__wrapper}>
 
@@ -37,31 +36,25 @@ export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
             </div>
 
             <div ref={node}
-                 className={css.search__block_filter_button_wrapper}
-
-            >
+                 className={css.search__block_filter_button_wrapper}>
                 <button
                     className={opened
                         ? `${css.search__block_filter_button} ${css.search__block_filter_button_pressed}`
                         : css.search__block_filter_button}
                     onClick={() => {
                         handlers.toggle()
-                    }}
-                >
+                    }}>
                     <img src={filterIcon} alt='filter icon'/>
                 </button>
 
-                {
-                    opened &&
+                {opened &&
                     <div className={css.search__block_filterBar_block}>
                         <FilterBar
                             filters={filters}
                             setFilters={setFilters}
                         />
-                    </div>
-                }
+                    </div>}
             </div>
-
 
         </section>
     )

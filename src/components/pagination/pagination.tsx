@@ -13,8 +13,7 @@ type PaginationComponentPropsType = {
 
 export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({
                                                                                 setPage,
-                                                                                activePage,
-                                                                                itemsCount
+                                                                                activePage, itemsCount
                                                                             }) => {
     let total = useAppSelector(state => state.vacancies.total)
 

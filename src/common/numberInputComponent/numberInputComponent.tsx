@@ -9,15 +9,15 @@ type NumberInputComponentPropsType = {
     label?: string
     placeholder: string
     paymentNumber: number | undefined
-    setPaymentNumber: (paymentNumber: string ) => void
+    setPaymentNumber: (paymentNumber: string) => void
     isFiltersReset: boolean
 }
 
 export const NumberInputComponent: React.FC<NumberInputComponentPropsType> = ({
                                                                                   label,
                                                                                   placeholder,
-                                                                                  setPaymentNumber,
-                                                                                  paymentNumber, isFiltersReset
+                                                                                  setPaymentNumber, paymentNumber,
+                                                                                  isFiltersReset
                                                                               }) => {
     const handlers = useRef<NumberInputHandlers>();
     const [value, setValue] = useState<number | ''>(Number(paymentNumber));

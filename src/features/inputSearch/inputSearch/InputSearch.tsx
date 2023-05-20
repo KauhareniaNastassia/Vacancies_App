@@ -28,7 +28,6 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
         }
     }
 
-
     return (
         <Input
             value={search}
@@ -49,8 +48,6 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
                         height: '40px',
                     }
                 },
-
-
             }}
             rightSectionWidth={100}
             rightSection={<ButtonComponent onClickHandler={onClickHandleSearchValue} title='Поиск'/>}

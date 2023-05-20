@@ -1,7 +1,6 @@
 import React from "react";
 import css from './buttonComponent.module.scss'
-import {Button, rem} from '@mantine/core';
-import {VacanciesParamsType} from "../../redux/vacanciesReducer";
+import {Button} from '@mantine/core';
 
 type ButtonPropsType = {
     title: string

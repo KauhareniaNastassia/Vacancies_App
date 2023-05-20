@@ -96,12 +96,12 @@ export type VacanciesParamsType = {
     no_agreement?: number
 }
 export type SearchParamsType = {
-    count?: string,
-    page?: string,
-    keyword?: string,
-    payment_from?: string,
-    payment_to?: string ,
-    catalogues?: string,
+    //count: string,
+    page: string,
+    keyword: string,
+    payment_from: string,
+    payment_to: string ,
+    catalogues: string,
 }
 
 export type CatalogueType = {

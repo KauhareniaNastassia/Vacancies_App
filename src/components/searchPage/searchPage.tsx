@@ -4,13 +4,12 @@ import {VacanciesList} from "../../features/vacanciesList/vacanciesList";
 import {PaginationComponent} from "../pagination/pagination";
 import css from './searchPage.module.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {getVacanciesTC, VacanciesParamsType, VacancyType} from "../../redux/vacanciesReducer";
+import {getVacanciesTC} from "../../redux/vacanciesReducer";
 import {getFavoritesTC} from "../../redux/favoritesReducer";
 import {useSearchParams} from "react-router-dom";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
 import {SearchBlock} from "../../features/inputSearch/searchBlock";
-import {getCataloguesTC, SearchParamsType, updateUrlParamsAC} from "../../redux/searchReducer";
-import {Loader} from "../../common/loader/loader";
+import {getCataloguesTC, updateUrlParamsAC} from "../../redux/searchReducer";
 import {filterParams} from "../../utils/filterParams";
 
 export type FilterType = {
@@ -23,11 +22,9 @@ export const SearchPage: React.FC = ({}) => {
     const dispatch = useAppDispatch()
     const favoriteVacancies = useAppSelector(state => state.favorites)
     const vacancies = useAppSelector(state => state.vacancies.objects)
-
-    const [searchValue, setSearchValue] = useState<string>('');
-
-
     const searchState = useAppSelector(state => state.search.params)
+
+    const [searchValue, setSearchValue] = useState(searchState.keyword);
     const [activePage, setPage] = useState(searchState.page);
     const [filters, setFilters] = useState<FilterType>({
         catalogues: searchState.catalogues,
@@ -35,11 +32,6 @@ export const SearchPage: React.FC = ({}) => {
         payment_to: searchState.payment_to,
     });
     const [searchParams, setSearchParams] = useSearchParams(searchState)
-    /*const pageURL = searchParams.get('page') ? searchParams.get('page') + '' : '1'
-    const keywordURL = searchParams.get('keyword') ? searchParams.get('keyword') + '' : ''
-    const payment_fromURL = searchParams.get('payment_from') ? searchParams.get('payment_from') + '' : ''
-    const payment_toURL = searchParams.get('payment_to') ? searchParams.get('payment_to') + '' : ''
-    const cataloguesURL = searchParams.get('catalogues') ? searchParams.get('catalogues') + '' : ''*/
 
 
     const handleChangePage = (page: number) => {
@@ -61,9 +53,10 @@ export const SearchPage: React.FC = ({}) => {
         setSearchValue(keyword)
     }
 
-    const handleFiltersValue = (filters: FilterType) => {
+    const handleFiltersValue = ( filters: FilterType, keyword?: string) => {
         dispatch(updateUrlParamsAC({
             ...searchState,
+            keyword: keyword + '',
             page: '1' + '',
             catalogues: filters.catalogues + '',
             payment_from: filters.payment_from + '',
@@ -79,14 +72,6 @@ export const SearchPage: React.FC = ({}) => {
         })
         setFilters(filters)
     }
-    /* const urlParamsFilter = {
-         keyword: keywordURL,
-         payment_from: payment_fromURL,
-         payment_to: payment_toURL,
-         catalogues: cataloguesURL,
-         page: pageURL,
-     }*/
-
 
     useEffect(() => {
         dispatch(getFavoritesTC())
@@ -98,7 +83,6 @@ export const SearchPage: React.FC = ({}) => {
 
 
     useEffect(() => {
-
         let params = {
             keyword: searchValue ? searchValue : '',
             payment_from: filters.payment_from ? Number(filters.payment_from) : null,
@@ -106,26 +90,8 @@ export const SearchPage: React.FC = ({}) => {
             catalogues: filters.catalogues ? filters.catalogues : '',
             page: Number(activePage) ? Number(activePage) : 1,
         }
-
-
-        //dispatch(updateUrlParamsAC(paramsV))
         dispatch(getVacanciesTC(params))
-
     }, [searchValue, filters, activePage])
-
-    /*   useEffect(() => {
-           const urlParams = {
-
-               page:  activePage+ '',
-               keyword: searchValue + '',
-               catalogues: filters?.catalogues + '',
-               payment_from: filters?.payment_from + '',
-               payment_to: filters?.payment_to+ '',
-
-           }
-           //dispatch(updateUrlParamsAC(urlParams))
-           setSearchParams({...urlParams});
-       }, [searchValue, filters, activePage])*/
 
 
     return (

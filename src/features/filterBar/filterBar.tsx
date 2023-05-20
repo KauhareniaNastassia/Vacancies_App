@@ -1,26 +1,24 @@
-import React, {ChangeEvent, RefAttributes, useEffect, useState} from "react";
+import React, {useState} from "react";
 import css from './filterBar.module.scss'
 import closeIcon from '../../assets/img/closeIcon.svg'
-import {NativeSelect, Select} from "@mantine/core";
+import {Select} from "@mantine/core";
 import arrowDown from '../../assets/img/arrowDown.svg'
 import {ButtonComponent} from "../../common/button/buttonComponent";
 import {NumberInputComponent} from "../../common/numberInputComponent/numberInputComponent";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {getCataloguesTC, setCataloguesAC} from "../../redux/searchReducer";
-import it from "node:test";
-import {VacanciesParamsType} from "../../redux/vacanciesReducer";
+import {useAppSelector} from "../../hooks/hooks";
 import {FilterType} from "../../components/searchPage/searchPage";
 
 type FilterBarPropsType = {
     filters: FilterType
     setFilters: (filters: FilterType) => void
+
 }
 
-export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters, filters}) => {
+export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
 
     const catalogues = useAppSelector(state => state.search.catalogues)
     const searchState = useAppSelector(state => state.search.params)
-    const [catalogue, setCatalogue] = useState<string | undefined>(searchState.catalogues);
+    const [catalogue, setCatalogue] = useState<string>(searchState.catalogues);
     const [isCataloguesOpen, setIsCataloguesOpen] = useState<boolean>(false)
 
     const [isFiltersReset, setIsFiltersReset] = useState<boolean>(false)
@@ -52,7 +50,6 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters, filters}) =
             payment_to: ''
         })
     }
-
 
 
     return (
