@@ -5,11 +5,10 @@ import {PaginationComponent} from "../pagination/pagination";
 import css from './searchPage.module.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {getVacanciesTC} from "../../redux/vacanciesReducer";
-import {getFavoritesTC} from "../../redux/favoritesReducer";
 import {useSearchParams} from "react-router-dom";
 import {NotFoundPage} from "../../features/notFoundPage/notFoundPage";
 import {SearchBlock} from "../../features/inputSearch/searchBlock";
-import {getCataloguesTC, updateUrlParamsAC} from "../../redux/searchReducer";
+import {updateUrlParamsAC} from "../../redux/searchReducer";
 import {filterParams} from "../../utils/filterParams";
 
 export type FilterType = {
@@ -20,9 +19,9 @@ export type FilterType = {
 
 export const SearchPage: React.FC = ({}) => {
     const dispatch = useAppDispatch()
-    const favoriteVacancies = useAppSelector(state => state.favorites)
     const vacancies = useAppSelector(state => state.vacancies.objects)
     const searchState = useAppSelector(state => state.search.params)
+    const [isFiltersReset, setIsFiltersReset] = useState<boolean>(false)
 
     const [searchValue, setSearchValue] = useState(searchState.keyword);
     const [activePage, setPage] = useState(searchState.page);
@@ -53,10 +52,9 @@ export const SearchPage: React.FC = ({}) => {
         setSearchValue(keyword)
     }
 
-    const handleFiltersValue = ( filters: FilterType, keyword?: string) => {
+    const handleFiltersValue = (filters: FilterType) => {
         dispatch(updateUrlParamsAC({
             ...searchState,
-            keyword: keyword + '',
             page: '1' + '',
             catalogues: filters.catalogues + '',
             payment_from: filters.payment_from + '',
@@ -73,13 +71,32 @@ export const SearchPage: React.FC = ({}) => {
         setFilters(filters)
     }
 
-    useEffect(() => {
-        dispatch(getFavoritesTC())
-    }, [favoriteVacancies.length])
-
-    useEffect(() => {
-        dispatch(getCataloguesTC())
-    }, [])
+    const handleResetAllFilters = () => {
+        dispatch(updateUrlParamsAC({
+            ...searchState,
+            keyword: '',
+            page: '1' + '',
+            catalogues: '',
+            payment_from: '',
+            payment_to: ''
+        }))
+        setSearchParams({
+            ...filterParams({
+                ...searchState, page: '1' + '',
+                keyword: '',
+                catalogues: '',
+                payment_from: '',
+                payment_to: ''
+            })
+        })
+        setFilters({
+            catalogues: '',
+            payment_from: '',
+            payment_to: ''
+        })
+        setSearchValue('')
+        setIsFiltersReset(true)
+    }
 
 
     useEffect(() => {
@@ -101,6 +118,8 @@ export const SearchPage: React.FC = ({}) => {
                 <FilterBar
                     filters={filters}
                     setFilters={handleFiltersValue}
+                    resetFilters={handleResetAllFilters}
+                    isFiltersReset={isFiltersReset}
                 />
             </div>
 
@@ -111,6 +130,8 @@ export const SearchPage: React.FC = ({}) => {
                     setFilters={setFilters}
                     searchValue={searchValue}
                     onChangeSetSearchValue={handleSearchValue}
+                    isFiltersReset={isFiltersReset}
+                    resetFilters={handleResetAllFilters}
                 />
 
                 {vacancies.length

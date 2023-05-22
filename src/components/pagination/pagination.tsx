@@ -25,7 +25,6 @@ export const PaginationComponent: React.FC<PaginationComponentPropsType> = ({
         setPage(activePage)
     }, [])
 
-    console.log(activePage)
     return (
         <section className={css.pagination__wrapper}>
 

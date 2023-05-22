@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler, KeyboardEventHandler, useState} from "react";
+import React, {ChangeEvent, ChangeEventHandler, KeyboardEventHandler, useEffect, useState} from "react";
 import {ButtonComponent} from "../../../common/button/buttonComponent";
 
 import searchIcon from '../../../assets/img/searchIcon.svg'
@@ -9,11 +9,12 @@ import {setKeywordAC, setParamsAC} from "../../../redux/vacanciesReducer";
 type InputSearchPropsType = {
     searchValue: string
     onChangeSetSearchValue: (searchValue: string) => void
+    isFiltersReset: boolean
 }
 
 export const InputSearch: React.FC<InputSearchPropsType> = ({
                                                                 searchValue,
-                                                                onChangeSetSearchValue
+                                                                onChangeSetSearchValue, isFiltersReset
                                                             }) => {
 
 
@@ -27,9 +28,18 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
             onChangeSetSearchValue(search)
         }
     }
+    console.log(isFiltersReset)
+
+    useEffect(() => {
+        if(isFiltersReset) {
+            setSearch('')
+            onChangeSetSearchValue('')
+        }
+    }, [isFiltersReset])
 
     return (
         <Input
+            data-elem="search-input"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => onKeyDownSetSearchValue(e)}
@@ -50,7 +60,12 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
                 },
             }}
             rightSectionWidth={100}
-            rightSection={<ButtonComponent onClickHandler={onClickHandleSearchValue} title='Поиск'/>}
+            rightSection={
+            <div data-elem="search-button">
+                <ButtonComponent onClickHandler={onClickHandleSearchValue} title='Поиск'/>
+            </div>
+
+        }
         />
     )
 }

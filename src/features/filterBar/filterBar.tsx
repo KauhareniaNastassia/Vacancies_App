@@ -11,17 +11,19 @@ import {FilterType} from "../../components/searchPage/searchPage";
 type FilterBarPropsType = {
     filters: FilterType
     setFilters: (filters: FilterType) => void
-
+    resetFilters: () => void
+    isFiltersReset: boolean
+    handlers?: {readonly open: () => void, readonly close: () => void, readonly toggle: () => void}
 }
 
-export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
+export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters, handlers,resetFilters, isFiltersReset}) => {
 
     const catalogues = useAppSelector(state => state.search.catalogues)
     const searchState = useAppSelector(state => state.search.params)
     const [catalogue, setCatalogue] = useState<string>(searchState.catalogues);
     const [isCataloguesOpen, setIsCataloguesOpen] = useState<boolean>(false)
 
-    const [isFiltersReset, setIsFiltersReset] = useState<boolean>(false)
+    //const [isFiltersReset, setIsFiltersReset] = useState<boolean>(false)
     const [paymentFrom, setPaymentFrom] = useState<string | undefined>(searchState.payment_from)
     const [paymentTo, setPaymentTo] = useState<string | undefined>(searchState.payment_to)
 
@@ -37,18 +39,25 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
             payment_from: paymentFrom ? paymentFrom.toString() : '',
             payment_to: paymentTo ? paymentTo.toString() : ''
         })
+        if(handlers) {
+            handlers.toggle()
+        }
     }
 
     const onClickResetFilters = () => {
-        setIsFiltersReset(true)
+        //setIsFiltersReset(true)
         setCatalogue('')
         setPaymentFrom('')
         setPaymentTo('')
-        setFilters({
+        resetFilters()
+       /* setFilters({
             catalogues: '',
             payment_from: '',
             payment_to: ''
-        })
+        })*/
+        if(handlers) {
+            handlers.close()
+        }
     }
 
 
@@ -69,6 +78,7 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
                 {catalogues &&
                     <div className={css.filterBar__filter}>
                         <Select
+                            data-elem="industry-select"
                             label="Отрасль"
                             placeholder="Выберете отрасль"
                             rightSection={<img
@@ -111,20 +121,24 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters}) => {
 
 
                 <div className={css.filterBar__filter}>
+                    <div data-elem="salary-from-input">
+                        <NumberInputComponent
+                            label='Оклад'
+                            placeholder='От'
+                            paymentNumber={Number(paymentFrom)}
+                            setPaymentNumber={setPaymentFrom}
+                            isFiltersReset={isFiltersReset}
+                        />
+                    </div>
+                    <div data-elem="salary-to-input">
+                        <NumberInputComponent
+                            placeholder='До'
+                            paymentNumber={Number(paymentTo)}
+                            setPaymentNumber={setPaymentTo}
+                            isFiltersReset={isFiltersReset}
+                        />
+                    </div>
 
-                    <NumberInputComponent
-                        label='Оклад'
-                        placeholder='От'
-                        paymentNumber={Number(paymentFrom)}
-                        setPaymentNumber={setPaymentFrom}
-                        isFiltersReset={isFiltersReset}
-                    />
-                    <NumberInputComponent
-                        placeholder='До'
-                        paymentNumber={Number(paymentTo)}
-                        setPaymentNumber={setPaymentTo}
-                        isFiltersReset={isFiltersReset}
-                    />
                 </div>
 
                 <ButtonComponent onClickHandler={onClickSetFilters} title='Применить'/>

@@ -13,11 +13,13 @@ type InputSearchBlockPropsType = {
     setFilters: (filters: FilterType) => void
     searchValue: string
     onChangeSetSearchValue: (searchValue: string) => void
+    resetFilters: () => void
+    isFiltersReset: boolean
 }
 
 export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
                                                                      searchValue,
-                                                                     onChangeSetSearchValue, setFilters, filters
+                                                                     onChangeSetSearchValue, setFilters, filters,resetFilters, isFiltersReset
                                                                  }) => {
 
 
@@ -32,6 +34,7 @@ export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
                 <InputSearch
                     searchValue={searchValue}
                     onChangeSetSearchValue={onChangeSetSearchValue}
+                    isFiltersReset={isFiltersReset}
                 />
             </div>
 
@@ -51,7 +54,10 @@ export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
                     <div className={css.search__block_filterBar_block}>
                         <FilterBar
                             filters={filters}
+                            isFiltersReset={isFiltersReset}
                             setFilters={setFilters}
+                            handlers={handlers}
+                            resetFilters={resetFilters}
                         />
                     </div>}
             </div>

@@ -5,10 +5,21 @@ import {NavLink} from "react-router-dom";
 import {BurgerMenu} from "../../common/burgerMenu/burgerMenu";
 import {authByPasswordTC, refreshTokenTC} from "../../redux/authReducer";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {getFavoritesTC} from "../../redux/favoritesReducer";
+import {getCataloguesTC} from "../../redux/searchReducer";
 
 export const Header: React.FC = () => {
     const authData = useAppSelector(state => state.auth.data)
     const dispatch = useAppDispatch()
+    const favoriteVacancies = useAppSelector(state => state.favorites)
+
+    useEffect(() => {
+        dispatch(getFavoritesTC())
+    }, [favoriteVacancies.length])
+
+    useEffect(() => {
+        dispatch(getCataloguesTC())
+    }, [])
 
     useEffect(() => {
         if (authData === null) {

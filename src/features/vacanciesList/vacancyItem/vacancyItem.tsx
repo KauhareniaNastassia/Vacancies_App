@@ -56,7 +56,7 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
     }, [favoriteVacancy])
 
     return (
-        <section className={css.vacancyItem__wrapper}>
+        <section className={css.vacancyItem__wrapper} data-elem={`vacancy-${id}`}>
 
             <div className={css.vacancyItem__title_wrapper}>
 
@@ -67,6 +67,7 @@ export const VacancyItem: React.FC<VacancyItemPropsType> = ({
                 }
 
                 <button
+                    data-elem={`vacancy-${id}-shortlist-button`}
                     className={css.vacancyItem__star_button}
                     onClick={() => onClickHandler(id)}
                 >
