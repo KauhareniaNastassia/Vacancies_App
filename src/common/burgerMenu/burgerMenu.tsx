@@ -6,7 +6,6 @@ import {NavLink} from "react-router-dom";
 
 
 export const BurgerMenu: React.FC = () => {
-
     const [showMenuBtn, setShowMenuBtn] = useState(false)
     const [popUpClose, setPopUpClose] = useState(true)
     const node = useRef<HTMLDivElement>(null);
@@ -42,22 +41,15 @@ export const BurgerMenu: React.FC = () => {
                     <NavLink
                         to="/vacancies"
                         className={css.burger_popUp__link}
-                        onClick={closeSideBar}
-                    >
+                        onClick={closeSideBar}>
                         Поиск вакансий
                     </NavLink>
                     <NavLink
                         to='/favorites'
                         className={css.burger_popUp__link}
-                        onClick={closeSideBar}
-
-                    >
+                        onClick={closeSideBar}>
                         Избранное
                     </NavLink>
-
-                    {/*<button className={css.burger_popUp_button}>Sign In</button>
-                    <button className={css.burger_popUp_button}>Registration</button>
-                    <button className={css.burger_popUp_button}>Contacts</button>*/}
                 </div>
             }
         </div>

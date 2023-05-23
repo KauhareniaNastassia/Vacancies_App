@@ -23,7 +23,7 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
     const onClickHandleSearchValue = () => {
         onChangeSetSearchValue(search)
     }
-    const onKeyDownSetSearchValue: KeyboardEventHandler = (e ) => {
+    const onKeyDownSetSearchValue: KeyboardEventHandler = (e) => {
         if (e.key === 'Enter') {
             onChangeSetSearchValue(search)
         }
@@ -31,7 +31,7 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
     console.log(isFiltersReset)
 
     useEffect(() => {
-        if(isFiltersReset) {
+        if (isFiltersReset) {
             setSearch('')
             onChangeSetSearchValue('')
         }
@@ -61,11 +61,11 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
             }}
             rightSectionWidth={100}
             rightSection={
-            <div data-elem="search-button">
-                <ButtonComponent onClickHandler={onClickHandleSearchValue} title='Поиск'/>
-            </div>
+                <div data-elem="search-button">
+                    <ButtonComponent onClickHandler={onClickHandleSearchValue} title='Поиск'/>
+                </div>
 
-        }
+            }
         />
     )
 }

@@ -6,7 +6,7 @@
   flex-direction: column;
   gap: 20px;
   @include background(24px);
-  width: 773px;
+  width: 725px;
   @include text(16px, 22px, 400, $text_color);
 
   @media (max-width: 400px) {

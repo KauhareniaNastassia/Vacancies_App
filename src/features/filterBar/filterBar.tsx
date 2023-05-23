@@ -13,17 +13,15 @@ type FilterBarPropsType = {
     setFilters: (filters: FilterType) => void
     resetFilters: () => void
     isFiltersReset: boolean
-    handlers?: {readonly open: () => void, readonly close: () => void, readonly toggle: () => void}
+    handlers?: { readonly open: () => void, readonly close: () => void, readonly toggle: () => void }
 }
 
-export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters, handlers,resetFilters, isFiltersReset}) => {
+export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters, handlers, resetFilters, isFiltersReset}) => {
 
     const catalogues = useAppSelector(state => state.search.catalogues)
     const searchState = useAppSelector(state => state.search.params)
     const [catalogue, setCatalogue] = useState<string>(searchState.catalogues);
     const [isCataloguesOpen, setIsCataloguesOpen] = useState<boolean>(false)
-
-    //const [isFiltersReset, setIsFiltersReset] = useState<boolean>(false)
     const [paymentFrom, setPaymentFrom] = useState<string | undefined>(searchState.payment_from)
     const [paymentTo, setPaymentTo] = useState<string | undefined>(searchState.payment_to)
 
@@ -39,23 +37,17 @@ export const FilterBar: React.FC<FilterBarPropsType> = ({setFilters, handlers,re
             payment_from: paymentFrom ? paymentFrom.toString() : '',
             payment_to: paymentTo ? paymentTo.toString() : ''
         })
-        if(handlers) {
+        if (handlers) {
             handlers.toggle()
         }
     }
 
     const onClickResetFilters = () => {
-        //setIsFiltersReset(true)
         setCatalogue('')
         setPaymentFrom('')
         setPaymentTo('')
         resetFilters()
-       /* setFilters({
-            catalogues: '',
-            payment_from: '',
-            payment_to: ''
-        })*/
-        if(handlers) {
+        if (handlers) {
             handlers.close()
         }
     }

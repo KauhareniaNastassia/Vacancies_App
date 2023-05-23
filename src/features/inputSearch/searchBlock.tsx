@@ -11,21 +11,18 @@ import {FilterType} from "../../components/searchPage/searchPage";
 type InputSearchBlockPropsType = {
     filters: FilterType
     setFilters: (filters: FilterType) => void
-    searchValue: string
-    onChangeSetSearchValue: (searchValue: string) => void
     resetFilters: () => void
     isFiltersReset: boolean
+    searchValue: string
+    onChangeSetSearchValue: (searchValue: string) => void
 }
 
 export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
                                                                      searchValue,
                                                                      onChangeSetSearchValue, setFilters, filters,resetFilters, isFiltersReset
                                                                  }) => {
-
-
     const node = useRef<HTMLDivElement>(null);
     const [opened, handlers] = useDisclosure(false);
-
 
     return (
         <section className={css.search__block__wrapper}>

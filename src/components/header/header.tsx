@@ -27,7 +27,6 @@ export const Header: React.FC = () => {
         } else if (authData.refresh_token && 1000 * authData.ttl < Date.now()) {
             dispatch(refreshTokenTC(authData.refresh_token))
         }
-
     }, [authData])
 
     return (

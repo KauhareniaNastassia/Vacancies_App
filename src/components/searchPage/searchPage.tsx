@@ -50,6 +50,7 @@ export const SearchPage: React.FC = ({}) => {
             })
         })
         setSearchValue(keyword)
+        setPage('1')
     }
 
     const handleFiltersValue = (filters: FilterType) => {
@@ -69,6 +70,7 @@ export const SearchPage: React.FC = ({}) => {
             })
         })
         setFilters(filters)
+        setPage('1')
     }
 
     const handleResetAllFilters = () => {
@@ -138,7 +140,6 @@ export const SearchPage: React.FC = ({}) => {
                     ? <>
                         <VacanciesList vacancies={vacancies}/>
                         <PaginationComponent
-
                             activePage={Number(activePage)}
                             setPage={handleChangePage}
                         />

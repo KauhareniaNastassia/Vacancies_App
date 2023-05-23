@@ -17,16 +17,12 @@ export const FavoritesPage: React.FC = () => {
     const [cardsForDisplay, setCardsForDisplay] = useState<VacancyType[]>(favoriteVacancies);
     let displayedObjects = cardsForDisplay?.slice(start, end)
 
-
     const startIndex = (activePage - 1) * 4;
     const endIndex = startIndex + 4;
-
-
 
     useEffect(() => {
         dispatch(getFavoritesTC())
     }, [favoriteVacancies.length])
-
 
     useEffect(() => {
         setCardsForDisplay(favoriteVacancies)
@@ -63,9 +59,8 @@ export const FavoritesPage: React.FC = () => {
                     activePage={activePage}
                     setPage={setPage}
                     itemsCount={favoriteVacancies.length}
-                   />
+                />
             }
-
         </section>
     )
 }
