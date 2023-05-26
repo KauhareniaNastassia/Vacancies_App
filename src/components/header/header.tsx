@@ -58,9 +58,7 @@ export const Header: React.FC = () => {
                 <div className={css.header__burger_menu_wrapper}>
                     <BurgerMenu/>
                 </div>
-
             </div>
-
         </section>
     )
 }
