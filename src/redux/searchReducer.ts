@@ -15,26 +15,17 @@ const initialState: InitialSearchStateType = {
         payment_to: '',
         catalogues: '',
     }
-
 }
 
 
 export const searchReducer = (state: InitialSearchStateType = initialState, action: SearchActionsType): InitialSearchStateType => {
     switch (action.type) {
-
-       /* case "vacancies/SET-KEYWORD":
-            return {
-                ...state, params: {...state, keyword: action.keyword}
-            }*/
         case "vacancies/SET-CATALOGUES":
             return {
                 ...state,  catalogues: action.catalogues
             }
-
         case 'vacancies/UPDATE_URL_PARAMS':
             return { ...state, params: action.params  }
-
-
         default:
             return state
     }
@@ -42,7 +33,6 @@ export const searchReducer = (state: InitialSearchStateType = initialState, acti
 
 
 //actions
-
 export const setCataloguesAC = (catalogues: CatalogueType[]) => ({
     type: 'vacancies/SET-CATALOGUES',
     catalogues
@@ -64,10 +54,8 @@ export const getCataloguesTC = (): AppThunkType =>
         try {
             const res = await cataloguesAPI.getCatalogues()
             dispatch(setCataloguesAC(res.data))
-            console.log(res)
             dispatch(setAppStatusAC('succeeded'))
         } catch (err) {
-            console.log(err)
             dispatch(setAppStatusAC('failed'))
         }
     }
@@ -82,7 +70,6 @@ export type SearchActionsType =
 type InitialSearchStateType = {
     catalogues: CatalogueType[],
     params: SearchParamsType
-    // total: number
 }
 
 export type VacanciesParamsType = {
@@ -96,7 +83,6 @@ export type VacanciesParamsType = {
     no_agreement?: number
 }
 export type SearchParamsType = {
-    //count: string,
     page: string,
     keyword: string,
     payment_from: string,

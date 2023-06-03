@@ -64,12 +64,9 @@ export const getVacanciesTC = (params?: VacanciesParamsType): AppThunkType =>
         try {
             const res = await vacanciesAPI.getVacancies(params)
             dispatch(setVacanciesAC(res.data.objects, res.data.total))
-            console.log(params?.keyword)
-            console.log(res)
             dispatch(setAppStatusAC('succeeded'))
         }
         catch(err) {
-            console.log(err)
             dispatch(setAppStatusAC('failed'))
         }
     }
@@ -89,10 +86,6 @@ type InitialVacanciesStateType = {
     params: VacanciesParamsType
     total: number
 }
-
-/*export type ObjectsDomainType = VacancyType & {
-    isFavorite: boolean
-}*/
 
 export type VacancyType = {
     id: number,
@@ -141,8 +134,6 @@ export type VacanciesParamsType = {
     payment_from?: number | null,
     payment_to?: number | null,
     count?: number,
-
-
     published?: number
     no_agreement?: number
 }

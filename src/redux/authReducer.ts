@@ -34,11 +34,9 @@ export const authByPasswordTC = (): AppThunkType =>
             dispatch(setAccessTokenAC(res.data))
             localStorage.setItem('access_token', JSON.stringify(res.data.access_token))
             localStorage.setItem('token_type', JSON.stringify(res.data.token_type))
-            console.log(res)
             dispatch(setAppStatusAC('succeeded'))
 
         } catch (err) {
-            console.log(err)
             dispatch(setAppStatusAC('failed'))
         }
     }
@@ -49,11 +47,8 @@ export const refreshTokenTC = (refreshToken: string): AppThunkType =>
         try {
             const res = await authAPI.refreshToken(refreshToken)
             dispatch(setAccessTokenAC(res.data))
-            console.log(res)
             dispatch(setAppStatusAC('succeeded'))
-
         } catch (err) {
-            console.log(err)
             dispatch(setAppStatusAC('failed'))
         }
     }

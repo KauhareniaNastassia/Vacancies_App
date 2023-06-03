@@ -28,7 +28,6 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
             onChangeSetSearchValue(search)
         }
     }
-    console.log(isFiltersReset)
 
     useEffect(() => {
         if (isFiltersReset) {
