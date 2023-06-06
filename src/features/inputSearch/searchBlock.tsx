@@ -1,11 +1,9 @@
 import {InputSearch} from "./inputSearch/InputSearch";
 import filterIcon from "../../assets/img/filterIcon.svg";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef} from "react";
 import css from './searchBlock.module.scss'
 import {FilterBar} from "../filterBar/filterBar";
-import {useOnClickOutsideCloseSideBar} from "../../hooks/useOnClickOutsideCloseBurgerMenu";
 import {useDisclosure} from "@mantine/hooks";
-import {VacanciesParamsType} from "../../redux/vacanciesReducer";
 import {FilterType} from "../../components/searchPage/searchPage";
 
 type InputSearchBlockPropsType = {
@@ -19,7 +17,11 @@ type InputSearchBlockPropsType = {
 
 export const SearchBlock: React.FC<InputSearchBlockPropsType> = ({
                                                                      searchValue,
-                                                                     onChangeSetSearchValue, setFilters, filters,resetFilters, isFiltersReset
+                                                                     onChangeSetSearchValue,
+                                                                     setFilters,
+                                                                     filters,
+                                                                     resetFilters,
+                                                                     isFiltersReset
                                                                  }) => {
     const node = useRef<HTMLDivElement>(null);
     const [opened, handlers] = useDisclosure(false);
