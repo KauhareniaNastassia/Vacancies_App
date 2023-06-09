@@ -123,6 +123,7 @@ export const SearchPage: React.FC = ({}) => {
                     resetFilters={handleResetAllFilters}
                     isFiltersReset={isFiltersReset}
                 />
+
             </div>
 
             <div className={css.searchPage__content_wrapper}>
